@@ -54,7 +54,7 @@ class ofertas
 
 //--------------------------------------------------------------------------------//
 //--METODO DE CLASE
-	public static function TraerUnasucursal($Parametro) 
+	public static function TraerUnaoferta($Parametro) 
 	{	
 
 
@@ -67,7 +67,7 @@ class ofertas
 					
 	}
 	
-	public static function TraerTodosLasSucursales()
+	public static function TraerTodosLasofertas()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("select * from ofertas");
@@ -76,7 +76,7 @@ class ofertas
 		return $arrVotos;
 	}
 	
-	public static function BorrarSucursal($idParametro)
+	public static function Borraroferta($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("delete from ofertas WHERE id_oferta=:id_oferta");	
@@ -85,7 +85,7 @@ class ofertas
 		return $consulta->rowCount();
 		
 	}
-	public static function ModificarSucursal($ofertas)
+	public static function Modificaroferta($ofertas)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
@@ -104,7 +104,7 @@ class ofertas
 
 //--------------------------------------------------------------------------------//
 
-	public static function InsertarSucursal($ofertas)
+	public static function Insertaroferta($ofertas)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into ofertas (id_oferta,precio,descripcion)values(:id_oferta,:precio,:descripcion)");

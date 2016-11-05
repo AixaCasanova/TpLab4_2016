@@ -20,6 +20,12 @@ angular
       templateUrl: 'views/usuarios.html',
       controller:'CtrolUsuario'
     })
+    
+    .state('ofertas', {
+      url: '/ofertas',
+      templateUrl: 'views/ofertas.html',
+      controller:'CtrolOfertas'
+    })
   });
 
 

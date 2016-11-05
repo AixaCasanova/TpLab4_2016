@@ -1,6 +1,6 @@
 <?php
 include("../clases/usuario.php");
- 
+include("../clases/ofertas.php");
 require 'vendor/autoload.php';
 
  
@@ -12,6 +12,13 @@ $app = new Slim\App();
 $app->get('/usuarios[/]', function ($request, $response, $args) {
     //$response->write("Lista de usuarios");
     $dato=usuario::TraerTodosLosusuarios();
+    $response->write(json_encode($dato));
+
+    return $response;
+});
+$app->get('/ofertas[/]', function ($request, $response, $args) {
+ 
+    $dato=ofertas::TraerTodosLasofertas();
     $response->write(json_encode($dato));
 
     return $response;
