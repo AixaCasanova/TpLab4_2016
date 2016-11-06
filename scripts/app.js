@@ -25,6 +25,11 @@ angular
       url: '/ofertas',
       templateUrl: 'views/ofertas.html',
       controller:'CtrolOfertas'
+    })  
+    .state('productos', {
+      url: '/productos',
+      templateUrl: 'views/productos.html',
+      controller:'CtrolProductos'
     })
   });
 

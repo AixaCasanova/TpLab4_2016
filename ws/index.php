@@ -1,6 +1,7 @@
 <?php
 include("../clases/usuario.php");
 include("../clases/ofertas.php");
+include("../clases/productos.php");
 require 'vendor/autoload.php';
 
  
@@ -23,6 +24,14 @@ $app->get('/ofertas[/]', function ($request, $response, $args) {
 
     return $response;
 });
+$app->get('/productos[/]', function ($request, $response, $args) {
+ 
+    $dato=productos::TraerTodosLosproductos();
+    $response->write(json_encode($dato));
+
+    return $response;
+});
+
 /*
 
 $app->get('/', function ($request, $response, $args) {
