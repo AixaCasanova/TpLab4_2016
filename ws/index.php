@@ -40,6 +40,19 @@ $app->post('/login/{objeto}', function ($request, $response, $args) {
    echo json_encode($dato);
 });
 
+$app->get('/empleados[/]', function ($request, $response, $args) {
+ 
+    $dato=usuario::TraerTodosLosempleados();
+    $response->write(json_encode($dato));
+    return $response;
+});
+
+$app->get('/clientes[/]', function ($request, $response, $args) {
+ 
+    $dato=usuario::TraerTodosLosclientes();
+    $response->write(json_encode($dato));
+    return $response;
+});
 
 /*
 

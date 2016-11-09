@@ -40,11 +40,20 @@ angular
       templateUrl: 'views/productos.html',
       controller:'CtrolProductos'
     })
-    
     .state('login', {
       url: '/login',
       templateUrl: 'views/login.html',
       controller:'CtrolLogin'
+    })
+     .state('empleados', {
+      url: '/empleados',
+      templateUrl: 'views/empleados.html',
+      controller:'CtrolEmpleados'
+    })
+    .state('clientes', {
+      url: '/clientes',
+      templateUrl: 'views/clientes.html',
+      controller:'CtrolClientes'
     })
   });
 

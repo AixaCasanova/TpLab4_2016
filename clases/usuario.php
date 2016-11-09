@@ -170,6 +170,26 @@ class usuario
 		
 	}
 	
+		public static function TraerTodosLosempleados()
+	 {
+	  $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+	  $consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario where tipo='E'");
+
+	  $consulta->execute();   
+	  $arrusuario= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario"); 
+	  return $arrusuario;
+	 }
+
+	  public static function TraerTodosLosclientes()
+	 {
+	  $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+	  $consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario where tipo='C'");
+
+	  $consulta->execute();   
+	  $arrusuario= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario"); 
+	  return $arrusuario;
+	 }
+
 	public static function Modificarusuario($usuario)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
