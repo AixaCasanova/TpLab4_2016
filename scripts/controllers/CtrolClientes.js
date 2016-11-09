@@ -46,9 +46,7 @@ angular
           { field: 'estado', name: 'estado', width: 120
           ,enableFiltering: false
         },
-          { field: 'sucursal', name: 'sucursal', width: 120
-          ,enableFiltering: false
-        },
+          
 
 
       ];

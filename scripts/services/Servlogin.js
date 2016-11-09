@@ -5,14 +5,13 @@ angular
     var objeto = {};
     objeto.nombre = "Servlogin";
     objeto.TraerUnLogin = TraerUnLogin;
-   
     return objeto;
 
  
-    function TraerUnLogin(pers){
-     console.info("desde servlogin",ServloginBase);
-     return ServloginBase.TraerUnLogin(pers);
-
+    function TraerUnLogin(pers)
+    {
+      console.info("desde servlogin",ServloginBase);
+      return ServloginBase.TraerUnLogin(pers);
     };
 
 

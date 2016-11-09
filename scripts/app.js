@@ -55,6 +55,12 @@ angular
       templateUrl: 'views/clientes.html',
       controller:'CtrolClientes'
     })
+    .state('AltaCliente', {
+      url: '/AltaCliente',
+      templateUrl: 'views/AltaClienteS.html',
+      controller:'CtrolAltaCliente'
+    })
+    
   });
 
 

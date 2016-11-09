@@ -223,13 +223,14 @@ class usuario
 
 //--------------------------------------------------------------------------------//
 
+
 //--------------------------------------------------------------------------------//
 
 	public static function Insertarusuario($usuario)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuario (id_user,nombre,apellido,direccion,mail,telefono,tipo,password,estado,sucursal)values(:id_user,:nombre,:apellido,:direccion,:mail,:telefono,:tipo,:password,:estado,:sucursal)");
-			$consulta->bindValue(':id_user',$usuario->id_user, PDO::PARAM_INT);
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuario (nombre,apellido,direccion,mail,telefono,tipo,password,estado,sucursal)values(:nombre,:apellido,:direccion,:mail,:telefono,:tipo,:password,:estado,:sucursal)");
+			//$consulta->bindValue(':id_user',$usuario->id_user, PDO::PARAM_INT);
 			$consulta->bindValue(':nombre', $usuario->nombre, PDO::PARAM_STR);
 			$consulta->bindValue(':apellido', $usuario->apellido, PDO::PARAM_STR);
 			$consulta->bindValue(':direccion', $usuario->direccion, PDO::PARAM_STR);

@@ -53,6 +53,28 @@ $app->get('/clientes[/]', function ($request, $response, $args) {
     $response->write(json_encode($dato));
     return $response;
 });
+$app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
+ 
+    $pers=json_decode($args['objeto']);
+    $UnCliente = new usuario();
+    $UnCliente->id_user='4';
+    $UnCliente->nombre = $pers->nombre;
+    $UnCliente->apellido = $pers->apellido;
+    $UnCliente->direccion=$pers->dir;
+    $UnCliente->mail=$pers->mail;
+    $UnCliente->telefono=$pers->tel;
+    $UnCliente->tipo=$pers->tipo;
+    $UnCliente->estado=$pers->estado;
+    $UnCliente->sucursal="na";
+    $UnCliente->password=$pers->pass;
+    $dato=usuario::Insertarusuario($UnCliente);  
+    $response->write(json_encode($dato));
+    //return json_encode($UnCliente);
+    return $response;
+
+    
+});
+
 
 /*
 
