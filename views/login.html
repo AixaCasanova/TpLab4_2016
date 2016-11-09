@@ -1,0 +1,31 @@
+
+	<form id="frm" name="frm">
+<center>
+		<div ng-if="ver==true" id="divlogin">  
+			<div class="login">
+				<h1 >Login</h1> 
+				Mail:<input type="mail" style="color:black" name="mail" ng-model="usuario.mail" placeholder="mail" required><span style="color:red" ng-if="frm.dni.$invalid">*</span><br><br>
+					Password:<input type="password" style="color:black" name="pass" ng-model="usuario.pass" required><span style="color:red" ng-if="frm.pass.$invalid">*</span><br><br>
+
+				<input type="button" ng-click="loguer()" style="color:black" name="registrar" value="Loguearse"  ng-disabled="frm.dni.$invalid || frm.pass.$invalid"><br><br>
+	  
+			</div>
+			  
+			
+		</div>
+
+		<div ng-if ="ver!=true">
+		<br><br>
+		  <input type='button' style="color:black" value='desloguear'  class='btn btn-warning'  ng-click="Desloguear()"> 
+		  </div> 
+		  
+ <br><br>
+ <strong><h1><a href="#"  style="color:black; width:300">volver</a> </h1></strong>
+ </center>
+	</form>
+
+	
+	<div>
+  <!-- <h3>Ofertas</h3>
+  <div ui-grid="gridOptionsUnaLogin" class="myGrid"></div>
+</div> -->

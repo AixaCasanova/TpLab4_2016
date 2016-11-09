@@ -1,6 +1,7 @@
 angular
   .module('app')
-  .controller('CtrolProductos', function($scope, data, ServProducto, i18nService, uiGridConstants) {
+  .controller('CtrolProductos', function($scope, data, ServProducto, i18nService, uiGridConstants)
+   {
     $scope.titulo = "Configuracion Campos";
  
     console.log("controller");

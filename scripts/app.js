@@ -7,14 +7,23 @@ angular
     'ui.grid.selection',
     'ui.grid.exporter',
     'ui.grid.edit',
-    'ngMap'
+    'ngMap',
+    'satellizer'
     ]
     )
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $authProvider) {
 
-    $urlRouterProvider.otherwise('usuarios');
+    $authProvider.loginUrl = "TpLab4_2016/jwt/php/auth.php";
+    $authProvider.tokenName = "MitokenGeneradoEnPhp";
+    $authProvider.tokenPrefix = "Aplicacion";
+    $authProvider.authHeader="data";
+
+    $urlRouterProvider.otherwise('inicio');
     $stateProvider
-
+    .state('inicio', {
+      url: '/inicio',
+      templateUrl: 'views/inicio.html'
+    })
     .state('usuarios', {
       url: '/usuarios',
       templateUrl: 'views/usuarios.html',
@@ -30,6 +39,12 @@ angular
       url: '/productos',
       templateUrl: 'views/productos.html',
       controller:'CtrolProductos'
+    })
+    
+    .state('login', {
+      url: '/login',
+      templateUrl: 'views/login.html',
+      controller:'CtrolLogin'
     })
   });
 

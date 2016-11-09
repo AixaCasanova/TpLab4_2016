@@ -32,6 +32,15 @@ $app->get('/productos[/]', function ($request, $response, $args) {
     return $response;
 });
 
+$app->post('/login/{objeto}', function ($request, $response, $args) {
+    
+    $pers=$args['objeto'];
+    $str=json_decode($pers);
+    $dato=usuario::TraerUnusuario($pers);   
+   echo json_encode($dato);
+});
+
+
 /*
 
 $app->get('/', function ($request, $response, $args) {
