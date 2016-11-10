@@ -66,6 +66,14 @@ angular
       controller:'CtrolModifCli',
       params:{'parametro':'parametro'} 
     })
+    .state('EliminarCli', {
+      url: '/EliminarCli',
+      templateUrl: 'views/EliminarClientes.html',
+      controller:'CtrolEliminarCli',
+      params:{'parametro':'parametro'} 
+    })
+
+
   });
 
 

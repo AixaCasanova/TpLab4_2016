@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('CtrolAltaCliente', function($scope, data, ServAltaCliente, i18nService, uiGridConstants,$auth) 
+  .controller('CtrolAltaCliente', function($scope, data, $state ,ServAltaCliente, i18nService, uiGridConstants,$auth) 
   {
     
         $scope.usuario={};
@@ -21,7 +21,7 @@ angular
           ServAltaCliente.AltaCliente(JSON.stringify($scope.usuario)).then(function(resp)
             {
                 console.info("desde constroller",resp);
-                
+                $state.go("clientes");
             })
            
       }

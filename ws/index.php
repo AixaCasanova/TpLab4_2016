@@ -95,7 +95,26 @@ $app->post('/ModifClie/{objeto}', function ($request, $response, $args) {
     
 });
 
+$app->post('/ElimClie/{objeto}', function ($request, $response, $args) {
+ 
+    $pers=json_decode($args['objeto']);
+    $UnCliente = new usuario();
+    $UnCliente->nombre = $pers->nombre;
+    $UnCliente->apellido = $pers->apellido;
+    $UnCliente->direccion=$pers->dir;
+    $UnCliente->mail=$pers->mail;
+    $UnCliente->telefono=$pers->tel;
+    $UnCliente->tipo="C";
+    $UnCliente->estado=$pers->estado;
+    $UnCliente->sucursal="na";
+    $UnCliente->password=$pers->pass;
+    $dato=usuario::Borrarusuario($UnCliente->mail);  
+    $response->write(json_encode($dato));
+    //return json_encode($UnCliente);
+    return $response;
 
+    
+});
 /*
 
 $app->get('/', function ($request, $response, $args) {

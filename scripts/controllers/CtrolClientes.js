@@ -28,7 +28,15 @@ angular
         
         $state.go("ModifCli",{parametro:parametro});
       }
-  
+      
+       $scope.EliminarCli = function(parametro)
+      {
+        //console.info(parametro['nombre']);
+        
+        $state.go("EliminarCli",{parametro:parametro});
+      }
+
+
     function columnDefs () {
       return [
          { field: 'nombre', name: 'nombre', width: 120
@@ -53,6 +61,7 @@ angular
           ,enableFiltering: false
         },
         { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.ModificarCli(row.entity)">'},
+        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.EliminarCli(row.entity)">'},
         
 
 
