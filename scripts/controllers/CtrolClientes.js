@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('CtrolClientes', function($scope, data, ServCliente, i18nService, uiGridConstants) {
+  .controller('CtrolClientes', function($scope, data, ServCliente,$state, i18nService, uiGridConstants) {
     $scope.titulo = "Configuracion Campos";
  
     console.log("controller");
@@ -22,6 +22,12 @@ angular
      });
  
 
+      $scope.ModificarCli = function(parametro)
+      {
+        //console.info(parametro['nombre']);
+        
+        $state.go("ModifCli",{parametro:parametro});
+      }
   
     function columnDefs () {
       return [
@@ -46,7 +52,8 @@ angular
           { field: 'estado', name: 'estado', width: 120
           ,enableFiltering: false
         },
-          
+        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.ModificarCli(row.entity)">'},
+        
 
 
       ];

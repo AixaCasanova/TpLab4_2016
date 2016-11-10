@@ -1,17 +1,17 @@
 angular
   .module('app')
-  .factory('factorybddAltaCliente', function ($http) {  
+  .factory('factorybddModifCliente', function ($http) {  
     var objeto = {};
-    objeto.nombre = "factorybddAltaCliente";
+    objeto.nombre = "factorybddModifCliente";
  
-    objeto.Api ="http://localhost:8026/TpLab4_2016/ws/AltaClientes"
+    objeto.Api ="http://localhost:8026/TpLab4_2016/ws/ModifClie"
     return objeto;
 
 
-    function AltaCliente(cliente){
+    function TraerCliente(cliente){
       return $http.post(TraerUrl(cliente)).then(
         function (respuesta){
-          console.info("desde factory bdd",respuesta);
+          console.info("desde factory bdd",respuesta.data);
           return respuesta.data;
         },
         function (error){

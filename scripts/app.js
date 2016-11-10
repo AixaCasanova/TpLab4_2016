@@ -60,7 +60,12 @@ angular
       templateUrl: 'views/AltaClienteS.html',
       controller:'CtrolAltaCliente'
     })
-    
+    .state('ModifCli', {
+      url: '/ModifCli',
+      templateUrl: 'views/ModifClientes.html',
+      controller:'CtrolModifCli',
+      params:{'parametro':'parametro'} 
+    })
   });
 
 
