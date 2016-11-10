@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('CtrolEmpleados', function($scope, data, ServEmpleado, i18nService, uiGridConstants) {
+  .controller('CtrolEmpleados', function($scope, $state ,data, ServEmpleado, i18nService, uiGridConstants) {
     $scope.titulo = "Configuracion Campos";
  
     console.log("controller");
@@ -20,7 +20,20 @@ angular
         console.info("desde constroller",resp);
   
      });
- 
+      
+      $scope.ModificarEmp = function(parametro)
+      {
+        //console.info(parametro['nombre']);
+        
+        $state.go("ModifEmp",{parametro:parametro});
+      }
+      
+       $scope.EliminarEmp = function(parametro)
+      {
+        //console.info(parametro['nombre']);
+        
+        $state.go("EliminarEmp",{parametro:parametro});
+      }
 
   
     function columnDefs () {
@@ -49,6 +62,9 @@ angular
           { field: 'sucursal', name: 'sucursal', width: 120
           ,enableFiltering: false
         },
+        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.ModificarEmp(row.entity)">'},
+        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.EliminarEmp(row.entity)">'},
+        
 
 
       ];

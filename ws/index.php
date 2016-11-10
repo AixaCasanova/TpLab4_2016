@@ -74,7 +74,7 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
 
     
 });
-$app->post('/ModifClie/{objeto}', function ($request, $response, $args) {
+$app->post('/ModifUs/{objeto}', function ($request, $response, $args) {
  
     $pers=json_decode($args['objeto']);
     $UnCliente = new usuario();
@@ -83,7 +83,7 @@ $app->post('/ModifClie/{objeto}', function ($request, $response, $args) {
     $UnCliente->direccion=$pers->dir;
     $UnCliente->mail=$pers->mail;
     $UnCliente->telefono=$pers->tel;
-    $UnCliente->tipo="C";
+    $UnCliente->$pers->tipo;
     $UnCliente->estado=$pers->estado;
     $UnCliente->sucursal="na";
     $UnCliente->password=$pers->pass;
@@ -115,6 +115,30 @@ $app->post('/ElimClie/{objeto}', function ($request, $response, $args) {
 
     
 });
+
+$app->post('/AltaEmpleados/{objeto}', function ($request, $response, $args) {
+ 
+    $pers=json_decode($args['objeto']);
+    $UnCliente = new usuario();
+    $UnCliente->id_user='4';
+    $UnCliente->nombre = $pers->nombre;
+    $UnCliente->apellido = $pers->apellido;
+    $UnCliente->direccion=$pers->dir;
+    $UnCliente->mail=$pers->mail;
+    $UnCliente->telefono=$pers->tel;
+    $UnCliente->tipo=$pers->tipo;
+    $UnCliente->estado=$pers->estado;
+    $UnCliente->sucursal="na";
+    $UnCliente->password=$pers->pass;
+    $dato=usuario::Insertarusuario($UnCliente);  
+    $response->write(json_encode($dato));
+    //return json_encode($UnCliente);
+    return $response;
+
+    
+});
+
+
 /*
 
 $app->get('/', function ($request, $response, $args) {

@@ -72,8 +72,24 @@ angular
       controller:'CtrolEliminarCli',
       params:{'parametro':'parametro'} 
     })
-
-
+    .state('AltaEmpleado', {
+      url: '/AltaEmpleado',
+      templateUrl: 'views/AltaEmpleado.html',
+      controller:'CtrolAltaEmpleado' 
+    })
+        .state('ModifEmp', {
+      url: '/ModifEmp',
+      templateUrl: 'views/ModifEmp.html',
+      controller:'CtrolModifEmp',
+      params:{'parametro':'parametro'} 
+    })
+    .state('EliminarEmp', {
+      url: '/EliminarEmp',
+      templateUrl: 'views/EliminarEmp.html',
+      controller:'CtrolEliminarEmp',
+      params:{'parametro':'parametro'} 
+    })
+    
   });
 
 

@@ -1,15 +1,15 @@
 angular
   .module('app')
-  .factory('factorybddModifCliente', function ($http) {  
+  .factory('factorybddModifEmpleado', function ($http) {  
     var objeto = {};
-    objeto.nombre = "factorybddModifCliente";
+    objeto.nombre = "factorybddModifEmpleado";
  
     objeto.Api ="http://localhost:8026/TpLab4_2016/ws/ModifUs"
     return objeto;
 
 
-    function TraerCliente(cliente){
-      return $http.post(TraerUrl(cliente)).then(
+    function ModifEmpleado(emp){
+      return $http.post(TraerUrl(emp)).then(
         function (respuesta){
           console.info("desde factory bdd",respuesta.data);
           return respuesta.data;
