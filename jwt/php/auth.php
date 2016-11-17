@@ -9,16 +9,18 @@ $user=json_decode($datosDelModeloPorPost);
 	
 	$claveDeEncripcion="estaEsLaClave";
 	$token["usuario"]=$user->mail;
+	$token["nombre"]=$user->nombre;
 	$token["perfil"]=$user->tipo;
 	$token["iat"]=time();
-	$token["exp"]=time()+1000;
+	$token["exp"]=time()+999;
 	$token["algo"]=$user;
- 
+ 	$token["id_user"]=$user->id_user;
+ 	$token["algo2"]="algo2";
 
 
 	$jwt = JWT::encode($token, $claveDeEncripcion);
 	$array["MitokenGeneradoEnPhp"]=$jwt;
 
 	echo json_encode($array);
-
+ 
 ?>

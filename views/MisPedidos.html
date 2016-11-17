@@ -1,0 +1,11 @@
+<div> 
+	<h3>Pedido</h3>
+
+	<input type="button" ui-sref="pedidos" name="pedir" value="Hacer Un pedidos"  ><br><br>
+	<div ui-grid="gridOptionsMisPedidos" class="myGrid"></div><br><br> 
+   	
+   	<div ng-if="veoGrilla">
+   	Detalle del pedido:<br><br>
+   	<div ui-grid="gridOptionsMisProdPedidos" class="myGrid"></div></div>
+
+</div>

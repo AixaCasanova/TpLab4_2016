@@ -32,18 +32,35 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">UI_GRID</a>
+      <a class="navbar-brand" href="#">TP</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a ui-sref="usuarios">usuarios</a></li>
-        <li><a ui-sref="ofertas">ofertas</a></li>
-        <li><a ui-sref="productos">productos</a></li>
-        <li><a ui-sref="empleados">empleados</a></li>
-        <li><a ui-sref="clientes">clientes</a></li>
-        <li><a ui-sref="login">login</a></li>
           
+           <li><a ui-sref="login">login</a></li> 
+                    
+                    <div ng-if="SeVe" class="nav navbar-nav">
+                     
+                      <div ng-if="esAdmin" class="nav navbar-nav"> 
+                        <li><a ui-sref="usuarios">usuarios</a></li> 
+                        <li><a ui-sref="empleados">empleados</a></li>
+                      </div>
+                      
+                      <div ng-if="esVend" class="nav navbar-nav"> 
+                        <li><a ui-sref="clientes">clientes</a></li>
+                        <li><a ui-sref="encargados">encargados</a></li> 
+                      </div>                    
+                      
+                      <li><a ui-sref="productos">productos</a></li> 
+                      <li><a ui-sref="ofertas">ofertas</a></li>
+                      <li><a ui-sref="MisPedidos">pedidos</a></li>
+                      
+                     
+                      <li><h4><div align="right"  style="color:white">{{userAVer}}</div></h4></li>
+                     
+                    </div>
+      
       </ul>
     </div>
   </div>
@@ -69,48 +86,45 @@
     <script src="scripts/controllers/CtrolLogin.js"></script>
     <script src="scripts/controllers/CtrolEmpleados.js"></script>
     <script src="scripts/controllers/CtrolClientes.js"></script>
-    <script src="scripts/controllers/CtrolAltaCliente.js"></script>
-    <script src="scripts/controllers/CtrolModifCli.js"></script>
-    <script src="scripts/controllers/CtrolEliminarCli.js"></script>
-    <script src="scripts/controllers/CtrolAltaEmpleado.js"></script>
-     <script src="scripts/controllers/CtrolModifEmp.js"></script>
+    <script src="scripts/controllers/CtrolEncargados.js"></script>
+    <script src="scripts/controllers/CtrolPedidos.js"></script>
+    
 
     <!-- services -->
     <script src="scripts/services/data.js"></script> 
     <script src="scripts/services/filtros.js"></script>
    
-    <script src="scripts/services/ServUsuario.js"></script> 
-    <script src="scripts/services/ServUsuarioBase.js"></script> 
-    <script src="scripts/services/Factory_bdd.js"></script> 
-     <script src="scripts/services/ServOferta.js"></script> 
-    <script src="scripts/services/ServOfertaBase.js"></script> 
-    <script src="scripts/services/FactorybddOferta.js"></script>
-    <script src="scripts/services/Servlogin.js"></script> 
-    <script src="scripts/services/ServloginBase.js"></script> 
-    <script src="scripts/services/FactorybddLogin.js"></script> 
-    <script src="scripts/services/ServProducto.js"></script> 
-    <script src="scripts/services/ServProductoBase.js"></script> 
-    <script src="scripts/services/FactorybddProducto.js"></script>
-     <script src="scripts/services/ServEmpleado.js"></script> 
-    <script src="scripts/services/ServEmpleadoBase.js"></script> 
-    <script src="scripts/services/FactorybddEmpleado.js"></script> 
-    <script src="scripts/services/ServCliente.js"></script> 
-    <script src="scripts/services/ServClienteBase.js"></script> 
-    <script src="scripts/services/FactorybddCliente.js"></script>
-     <script src="scripts/services/ServAltaCliente.js"></script> 
-    <script src="scripts/services/ServAltaClienteBase.js"></script> 
-    <script src="scripts/services/FactorybddAltaCliente.js"></script>
-    <script src="scripts/services/ServModifCliente.js"></script> 
-    <script src="scripts/services/ServModifClienteBase.js"></script> 
-    <script src="scripts/services/FactorybddModifCliente.js"></script>
-    <script src="scripts/services/ServElimCliente.js"></script> 
-    <script src="scripts/services/ServElimClienteBase.js"></script> 
-    <script src="scripts/services/FactorybddElimCliente.js"></script>
-    <script src="scripts/services/ServAltaEmpleado.js"></script> 
-    <script src="scripts/services/ServAltaEmpleadoBase.js"></script> 
-    <script src="scripts/services/FactorybddAltaEmpleado.js"></script>
-    <script src="scripts/services/ServModifEmp.js"></script> 
-    <script src="scripts/services/ServModifEmpBase.js"></script> 
-    <script src="scripts/services/factorybddModifEmpleado.js"></script>
+    <script src="scripts/services/usuarios/ServUsuario.js"></script> 
+    <script src="scripts/services/usuarios/ServUsuarioBase.js"></script> 
+    <script src="scripts/services/usuarios/Factory_bdd.js"></script> 
+
+     <script src="scripts/services/ofertas/ServOferta.js"></script> 
+    <script src="scripts/services/ofertas/ServOfertaBase.js"></script> 
+    <script src="scripts/services/ofertas/FactorybddOferta.js"></script>
+
+    <script src="scripts/services/login/Servlogin.js"></script> 
+    <script src="scripts/services/login/ServloginBase.js"></script> 
+    <script src="scripts/services/login/FactorybddLogin.js"></script> 
+
+    <script src="scripts/services/productos/ServProducto.js"></script> 
+    <script src="scripts/services/productos/ServProductoBase.js"></script> 
+    <script src="scripts/services/productos/FactorybddProducto.js"></script>
+
+     <script src="scripts/services/empleados/ServEmpleado.js"></script> 
+    <script src="scripts/services/empleados/ServEmpleadoBase.js"></script> 
+    <script src="scripts/services/empleados/FactorybddEmpleado.js"></script> 
+    
+    <script src="scripts/services/cliente/ServCliente.js"></script> 
+    <script src="scripts/services/cliente/ServClienteBase.js"></script> 
+    <script src="scripts/services/cliente/FactorybddCliente.js"></script>
+ 
+    <script src="scripts/services/encargados/ServEncargado.js"></script> 
+    <script src="scripts/services/encargados/ServEncargadoBase.js"></script> 
+    <script src="scripts/services/encargados/FactorybddEncargado.js"></script> 
+
+    <script src="scripts/services/pedidos/ServPedido.js"></script> 
+    <script src="scripts/services/pedidos/ServPedidoBase.js"></script> 
+    <script src="scripts/services/pedidos/FactorybddPedido.js"></script> 
+ 
 </body>
 </html>

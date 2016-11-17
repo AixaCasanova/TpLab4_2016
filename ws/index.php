@@ -2,8 +2,10 @@
 include("../clases/usuario.php");
 include("../clases/ofertas.php");
 include("../clases/productos.php");
+include("../clases/sucursal.php");
+include("../clases/pedidos.php");
 require 'vendor/autoload.php';
-
+ 
  
 $app = new Slim\App();
 
@@ -24,6 +26,15 @@ $app->get('/ofertas[/]', function ($request, $response, $args) {
 
     return $response;
 });
+
+$app->get('/sucursales[/]', function ($request, $response, $args) {
+ 
+    $dato=sucursal::TraerTodosLasSucursales();
+    $response->write(json_encode($dato));
+
+    return $response;
+});
+
 $app->get('/productos[/]', function ($request, $response, $args) {
  
     $dato=productos::TraerTodosLosproductos();
@@ -32,8 +43,31 @@ $app->get('/productos[/]', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/pedidos[/{objeto}]', function ($request, $response, $args) {
+  
+  $pers=$args['objeto'];
+  
+   
+  $idUser=(int)$pers;
+  $resp=pedidos::TraerMisPedidos($idUser);
+  return json_encode($resp);
+  
+});
+$app->get('/pedidosDT[/{objeto}]', function ($request, $response, $args) {
+  $pers=$args['objeto'];
+
+ 
+  $idUser=(int)$pers;
+  $resp=pedidos::TraerProdDeMisPedidos($idUser);
+  return json_encode($resp);
+   
+
+});
+
 $app->post('/login/{objeto}', function ($request, $response, $args) {
     
+   
+
     $pers=$args['objeto'];
     $str=json_decode($pers);
     $dato=usuario::TraerUnusuario($pers);   
@@ -43,6 +77,13 @@ $app->post('/login/{objeto}', function ($request, $response, $args) {
 $app->get('/empleados[/]', function ($request, $response, $args) {
  
     $dato=usuario::TraerTodosLosempleados();
+    $response->write(json_encode($dato));
+    return $response;
+});
+
+$app->get('/encargado[/]', function ($request, $response, $args) {
+ 
+    $dato=usuario::TraerTodosLosencargados();
     $response->write(json_encode($dato));
     return $response;
 });
@@ -74,18 +115,56 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
 
     
 });
+
+    $app->post('/AltaP/{objeto}', function ($request, $response, $args) {
+ 
+    $prod=json_decode($args['objeto']);
+    $UnProd = new productos();
+    $UnProd->descripcion = $prod->descripcion;
+    $UnProd->precio = $prod->precio;
+    $dato=productos::Insertarproducto($UnProd);  
+    $response->write(json_encode($dato));
+    //return json_encode($UnProd);
+    return $response;
+
+    
+});
+    
+ $app->post('/AltaPed/{objeto}', function ($request, $response, $args) {
+ 
+    $prod=json_decode($args['objeto']);
+    $UnPedido = new pedidos();
+    $UnPedido->lista_productos = $prod->lista_productos;
+    $UnPedido->total_pedido = $prod->total_pedido;
+    $UnPedido->id_user=$prod->id_user;
+    $dato=pedidos::InsertarPedidos($UnPedido);  
+    $response->write(json_encode($dato));
+
+    $idp=pedidos::TraerUltimoId();
+             
+       foreach ($prod->lista_productos as $p ) 
+       {
+        $intp = (int)$p;
+        $res=pedidos::InsertarDetPed($intp,$idp->id_pedidos);
+       }    
+    
+       return $response;
+    
+});
+
 $app->post('/ModifUs/{objeto}', function ($request, $response, $args) {
  
     $pers=json_decode($args['objeto']);
     $UnCliente = new usuario();
+    $UnCliente->id_user = $pers->id_user;
     $UnCliente->nombre = $pers->nombre;
     $UnCliente->apellido = $pers->apellido;
     $UnCliente->direccion=$pers->dir;
     $UnCliente->mail=$pers->mail;
     $UnCliente->telefono=$pers->tel;
-    $UnCliente->$pers->tipo;
+    $UnCliente->tipo=$pers->tipo;
     $UnCliente->estado=$pers->estado;
-    $UnCliente->sucursal="na";
+    $UnCliente->sucursal=$pers->sucursal;
     $UnCliente->password=$pers->pass;
     $dato=usuario::Modificarusuario($UnCliente);  
     $response->write(json_encode($dato));
@@ -95,20 +174,49 @@ $app->post('/ModifUs/{objeto}', function ($request, $response, $args) {
     
 });
 
-$app->post('/ElimClie/{objeto}', function ($request, $response, $args) {
+
+$app->post('/ModifP/{objeto}', function ($request, $response, $args) {
+ 
+    $prod=json_decode($args['objeto']);
+    $UnProd = new productos();
+    $UnProd->id_producto = $prod->id_producto;
+    $UnProd->descripcion = $prod->descripcion;
+    $UnProd->precio = $prod->precio;
+    $dato=productos::Modificarproducto($UnProd);  
+    $response->write(json_encode($dato));
+    return $response;
+    //return json_encode($UnProd);
+});
+
+
+$app->post('/ElimP/{objeto}', function ($request, $response, $args) {
+ 
+    $prod=json_decode($args['objeto']);
+    $UnProd = new productos();
+    $UnProd->id_producto = $prod->id_producto;
+    $dato=productos::Borrarproducto($UnProd->id_producto);  
+    $response->write(json_encode($dato));
+    return $response;
+    return json_encode($UnProd);
+});
+
+
+
+$app->post('/ElimUs/{objeto}', function ($request, $response, $args) {
  
     $pers=json_decode($args['objeto']);
     $UnCliente = new usuario();
+    $UnCliente->id_user = $pers->id_user;
     $UnCliente->nombre = $pers->nombre;
     $UnCliente->apellido = $pers->apellido;
     $UnCliente->direccion=$pers->dir;
     $UnCliente->mail=$pers->mail;
     $UnCliente->telefono=$pers->tel;
-    $UnCliente->tipo="C";
+    $UnCliente->tipo=$pers->tipo;
     $UnCliente->estado=$pers->estado;
     $UnCliente->sucursal="na";
     $UnCliente->password=$pers->pass;
-    $dato=usuario::Borrarusuario($UnCliente->mail);  
+    $dato=usuario::Borrarusuario($UnCliente->mail,$UnCliente->id_user,$UnCliente->tipo);  
     $response->write(json_encode($dato));
     //return json_encode($UnCliente);
     return $response;
@@ -116,7 +224,7 @@ $app->post('/ElimClie/{objeto}', function ($request, $response, $args) {
     
 });
 
-$app->post('/AltaEmpleados/{objeto}', function ($request, $response, $args) {
+$app->post('/AltaUs/{objeto}', function ($request, $response, $args) {
  
     $pers=json_decode($args['objeto']);
     $UnCliente = new usuario();
@@ -128,11 +236,11 @@ $app->post('/AltaEmpleados/{objeto}', function ($request, $response, $args) {
     $UnCliente->telefono=$pers->tel;
     $UnCliente->tipo=$pers->tipo;
     $UnCliente->estado=$pers->estado;
-    $UnCliente->sucursal="na";
+    $UnCliente->sucursal=$pers->sucursal;
     $UnCliente->password=$pers->pass;
+    //return json_encode($pers);
     $dato=usuario::Insertarusuario($UnCliente);  
     $response->write(json_encode($dato));
-    //return json_encode($UnCliente);
     return $response;
 
     

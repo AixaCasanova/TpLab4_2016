@@ -4,7 +4,7 @@ class productos
 {
 //--------------------------------------------------------------------------------//
 //--ATRIBUTOS
-	public $id_productos;
+	public $id_producto;
 	public $descripcion;
  	public $precio;
   
@@ -14,7 +14,7 @@ class productos
 //--GETTERS Y SETTERS
   	public function Getid_oferta()
 	{
-		return $this->id_productos;
+		return $this->id_producto;
 	}
 	public function Getdescripcion()
 	{
@@ -27,7 +27,7 @@ class productos
 
 	public function Setid_oferta($valor)
 	{
-		$this->id_productos = $valor;
+		$this->id_producto = $valor;
 	}
 	public function Setdescripcion($valor)
 	{
@@ -59,8 +59,8 @@ class productos
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select * from productos where id_productos =:id_productos");
-		$consulta->bindValue(':id_productos', $Parametro, PDO::PARAM_INT);
+		$consulta =$objetoAccesoDato->RetornarConsulta("select * from productos where id_producto =:id_producto");
+		$consulta->bindValue(':id_producto', $Parametro, PDO::PARAM_INT);
 		$consulta->execute();
 		$VotoBuscado= $consulta->fetchObject('productos');
 		return $VotoBuscado;	
@@ -79,8 +79,8 @@ class productos
 	public static function Borrarproducto($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("delete from productos WHERE id_productos=:id_productos");	
-		$consulta->bindValue(':id_productos',$idParametro, PDO::PARAM_INT);		
+		$consulta =$objetoAccesoDato->RetornarConsulta("delete from productos WHERE id_producto=:id_producto");	
+		$consulta->bindValue(':id_producto',$idParametro, PDO::PARAM_INT);		
 		$consulta->execute();
 		return $consulta->rowCount();
 		
@@ -90,11 +90,12 @@ class productos
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				update productos 
+				set
 				precio=:precio,	
-				descripcion=:descripcion,
-				WHERE id_productos=:id_productos");
+				descripcion=:descripcion
+				WHERE id_producto=:id_producto");
 
-			$consulta->bindValue(':id_productos',$productos->id_productos, PDO::PARAM_INT);
+			$consulta->bindValue(':id_producto',$productos->id_producto, PDO::PARAM_INT);
 			$consulta->bindValue(':precio', $productos->precio, PDO::PARAM_STR);
 			$consulta->bindValue(':descripcion', $productos->descripcion, PDO::PARAM_STR);
 			return $consulta->execute();
@@ -107,9 +108,8 @@ class productos
 	public static function Insertarproducto($productos)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into productos (id_productos,precio,descripcion)values(:id_productos,:precio,:descripcion)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into productos (precio,descripcion)values(:precio,:descripcion)");
 		$consulta->bindValue(':precio', $productos->precio, PDO::PARAM_STR);
-		$consulta->bindValue(':id_productos', $productos->id_productos, PDO::PARAM_STR);
 		$consulta->bindValue(':descripcion', $productos->descripcion, PDO::PARAM_STR);
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();

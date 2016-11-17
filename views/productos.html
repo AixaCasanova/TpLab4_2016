@@ -1,4 +1,11 @@
-<div>
-  <h3>Ofertas</h3>
-  <div ui-grid="gridOptionsProductos" class="myGrid"></div>
+<div> 
+	<h3>Productos</h3>
+	<div ng-if="veralta">
+  		<input type="button" ui-sref="AltaProd" style="color:black" name="AltaProd" value="Nuevo producto"><br><br>
+  	</div>
+  
+  	<div ui-grid="gridOptionsProductos" class="myGrid"></div>
+ 	<br><br>
+ 
+
 </div>

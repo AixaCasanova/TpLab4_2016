@@ -1,5 +1,5 @@
 <?php
-require_once"accesoDatos.php";
+require_once"AccesoDatos.php";
 class usuario
 {
 //--------------------------------------------------------------------------------//
@@ -160,11 +160,13 @@ class usuario
 		return $arrusuario;
 	}
 	
-	public static function Borrarusuario($mail)
+	public static function Borrarusuario($mail,$id_user,$tipo)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("delete from usuario WHERE mail=:mail");	
-		$consulta->bindValue(':mail',$mail, PDO::PARAM_INT);		
+		$consulta =$objetoAccesoDato->RetornarConsulta("delete from usuario WHERE mail=:mail and id_user=:id_user and tipo=:tipo");
+		$consulta->bindValue(':mail',$mail, PDO::PARAM_INT);	
+		$consulta->bindValue(':id_user',$id_user, PDO::PARAM_INT);	
+		$consulta->bindValue(':tipo',$tipo, PDO::PARAM_INT);
 		$consulta->execute();
 		return $consulta->rowCount();
 		
@@ -173,17 +175,28 @@ class usuario
 		public static function TraerTodosLosempleados()
 	 {
 	  $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-	  $consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario where tipo='E'");
+	  $consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario where tipo='vendedor'");
 
 	  $consulta->execute();   
 	  $arrusuario= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario"); 
 	  return $arrusuario;
 	 }
 
+	public static function TraerTodosLosencargados()
+	 {
+	  $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+	  $consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario where tipo='encargado'");
+
+	  $consulta->execute();   
+	  $arrusuario= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario"); 
+	  return $arrusuario;
+	 }
+
+
 	  public static function TraerTodosLosclientes()
 	 {
 	  $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-	  $consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario where tipo='C'");
+	  $consulta =$objetoAccesoDato->RetornarConsulta("select * from usuario where tipo='comprador'");
 
 	  $consulta->execute();   
 	  $arrusuario= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario"); 
@@ -195,18 +208,17 @@ class usuario
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				update usuario 
-				set id_user=:id_user,
+				set
 				nombre=:nombre,
 				apellido=:apellido,
 				direccion=:direccion,
 				telefono=:telefono,
-				tipo=:tipo,
 				password=:password,
 				estado=:estado,
 				sucursal=:sucursal
-				WHERE mail=:mail");
+				WHERE mail=:mail and id_user=:id_user and tipo=:tipo");
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso();
-			$consulta->bindValue(':id_user',$usuario->id_user, PDO::PARAM_INT);
+			$consulta->bindValue(':id_user', $usuario->id_user, PDO::PARAM_STR);
 			$consulta->bindValue(':nombre', $usuario->nombre, PDO::PARAM_STR);
 			$consulta->bindValue(':apellido', $usuario->apellido, PDO::PARAM_STR);
 			$consulta->bindValue(':direccion', $usuario->direccion, PDO::PARAM_STR);

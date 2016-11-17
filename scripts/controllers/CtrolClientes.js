@@ -1,10 +1,47 @@
 angular
   .module('app')
-  .controller('CtrolClientes', function($scope, data, ServCliente,$state, i18nService, uiGridConstants) {
-    $scope.titulo = "Configuracion Campos";
+  .controller('CtrolClientes', function($scope,$rootScope, data, $auth ,ServCliente,$stateParams, $state, i18nService, uiGridConstants) {
  
-    console.log("controller");
-    
+  //-------------------
+
+ 
+       if ($auth.isAuthenticated()) {
+       
+        var datos=$auth.getPayload();
+      
+        $rootScope.usuarioAver="Bienvenido "+ datos['nombre'];  
+         $rootScope.SeVe=true;
+        $rootScope.userAVer="Bienvenido "+ datos['nombre'];
+
+        if (datos['perfil'] == "administrador") {
+        
+        console.info("datos.perfil: ",datos['perfil'])
+
+          $rootScope.esAdmin=true;
+          $rootScope.esVend=true;
+        }else if (datos['perfil'] == "comprador") {
+          $rootScope.esAdmin=false;
+          $rootScope.esVend=false;
+        }else if (datos['perfil'] == "vendedor") {
+          $rootScope.esAdmin=false;         
+          $rootScope.esVend=true;
+        }else if (datos['perfil'] == "encargado") {
+          $rootScope.esAdmin=false;         
+          $rootScope.esVend=true;
+          //modificarr!!!!
+        } 
+       
+      }else{
+        console.info("llega al ctrol gral?3")
+        console.info("notoken",$auth.getPayload());
+          $rootScope.SeVe=false;
+          $rootScope.usuarioAver="";
+   
+      }
+
+ //----------------------
+
+  
     $scope.gridOptionsClientes = {};
     $scope.gridOptionsClientes.paginationPageSizes = [25, 50, 75];
  
@@ -17,25 +54,110 @@ angular
 
       ServCliente.TraerCliente().then(function(resp){
        $scope.gridOptionsClientes.data=resp;
-        console.info("desde constroller",resp);
-  
-     });
+        
+        $scope.listaUser=resp;
+        });
  
 
-      $scope.ModificarCli = function(parametro)
+
+      if ($stateParams['parametro'] != null) 
+      {
+
+          var ObjRecibido=$stateParams['parametro'];
+      
+
+            $scope.usuario={};
+            $scope.usuario.id_user=ObjRecibido.id_user;
+            $scope.usuario.nombre=ObjRecibido.nombre;
+            $scope.usuario.apellido=ObjRecibido.apellido;
+            $scope.usuario.mail=ObjRecibido.mail;
+            $scope.usuario.dir=ObjRecibido.direccion;
+            $scope.usuario.tel=ObjRecibido.telefono;
+            $scope.usuario.pass=ObjRecibido.password;
+            $scope.usuario.estado = ObjRecibido.estado;
+            $scope.usuario.tipo=ObjRecibido.tipo;
+      }else
+      {
+ 
+        $scope.usuario={};
+        $scope.usuario.nombre="Octavio";
+        $scope.usuario.apellido="Villegas";
+        $scope.usuario.mail="Octavio@MAIL.COM";
+        $scope.usuario.dir="calle falsa 888";
+        $scope.usuario.tel=123456;
+        $scope.usuario.pass="123ABC";
+        $scope.usuario.passRep="123ABC";
+        $scope.usuario.estado = "H";
+        $scope.usuario.tipo="comprador";
+        $scope.usuario.sucursal="NoAplica";
+      }
+      
+      //----------------------------------
+
+      $scope.Volver=function()
+            {
+              $state.go("clientes");
+            }
+
+ 
+
+      $scope.IrModificarCli = function(parametro)
       {
         //console.info(parametro['nombre']);
         
         $state.go("ModifCli",{parametro:parametro});
       }
       
-       $scope.EliminarCli = function(parametro)
+      $scope.IrEliminarCli = function(parametro)
       {
         //console.info(parametro['nombre']);
         
         $state.go("EliminarCli",{parametro:parametro});
       }
 
+       $scope.ModifC=function()
+      {
+          ServCliente.ModiCliente(JSON.stringify($scope.usuario)).then(function(resp)
+            {
+                 
+                $state.go("clientes");
+                
+            })
+           
+      }
+
+       $scope.ElimC=function()
+      {
+          ServCliente.ElimCliente(JSON.stringify($scope.usuario)).then(function(resp)
+            {
+                
+                $state.go("clientes");
+                
+            })
+           
+      }
+
+      $scope.AltaC=function()
+      {
+          ServCliente.AltaCliente(JSON.stringify($scope.usuario)).then(function(resp)
+            {
+                 
+                $state.go("clientes");
+            })
+           
+      }
+
+      $scope.Registrarse=function()
+      {
+          ServCliente.AltaCliente(JSON.stringify($scope.usuario)).then(function(resp)
+            {
+                 
+                $state.go("login");
+            })
+           
+      }
+
+      
 
     function columnDefs () {
       return [
@@ -60,8 +182,8 @@ angular
           { field: 'estado', name: 'estado', width: 120
           ,enableFiltering: false
         },
-        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.ModificarCli(row.entity)">'},
-        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.EliminarCli(row.entity)">'},
+        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.IrModificarCli(row.entity)">'},
+        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.IrEliminarCli(row.entity)">'},
         
 
 
