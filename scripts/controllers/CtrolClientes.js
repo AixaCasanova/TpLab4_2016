@@ -6,7 +6,7 @@ angular
 
  
        if ($auth.isAuthenticated()) {
-       
+       $scope.ver=true;
         var datos=$auth.getPayload();
       
         $rootScope.usuarioAver="Bienvenido "+ datos['nombre'];  
@@ -35,6 +35,7 @@ angular
         console.info("llega al ctrol gral?3")
         console.info("notoken",$auth.getPayload());
           $rootScope.SeVe=false;
+          $scope.ver=false;
           $rootScope.usuarioAver="";
    
       }

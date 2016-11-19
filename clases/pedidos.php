@@ -91,7 +91,7 @@ class pedidos
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select p.descripcion ,p.precio, p.id_producto from det_ped as dp, productos as p where id_pedidos =:id_p and dp.id_producto = p.id_producto");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select p.descripcion ,p.precio, p.id_producto , dpcant from det_ped as dp, productos as p where id_pedidos =:id_p and dp.id_producto = p.id_producto");
 		$consulta->bindValue(':id_p', $id_p, PDO::PARAM_INT);
 		$consulta->execute();			
 		$arrp= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	
@@ -149,12 +149,13 @@ class pedidos
 
 //--------------------------------------------------------------------------------//
 
-public static function InsertarDetPed($id_pr, $id_ped)
+public static function InsertarDetPed($id_pr, $id_ped,$cantidad)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("insert into det_ped (id_pedidos,id_producto)values(:id_pedidos,:id_producto)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("insert into det_ped (id_pedidos,id_producto,cant)values(:id_pedidos,:id_producto,:cantidad)");
 		$consulta->bindValue(':id_producto', $id_pr, PDO::PARAM_STR);
 		$consulta->bindValue(':id_pedidos', $id_ped, PDO::PARAM_STR);
+		$consulta->bindValue(':cantidad', $cantidad, PDO::PARAM_STR);
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
 				

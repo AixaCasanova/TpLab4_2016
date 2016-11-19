@@ -24,8 +24,11 @@ angular
      $scope.gridOptionsMisProdPedidos.paginationPageSizes = [25, 50, 75];
      $scope.gridOptionsMisProdPedidos.paginationPageSize = 25;
 
+     $scope.gridOptionsMisProdSel = {};
+     $scope.gridOptionsMisProdSel.paginationPageSizes = [25, 50, 75];
+     $scope.gridOptionsMisProdSel.paginationPageSize = 25;
+     $scope.gridOptionsMisProdSel.columnDefs=columnDefsPsel();
 
-  
           ServPedido.TraerP().then(function(resp)
           {          
            
@@ -134,15 +137,75 @@ angular
             //             })      
             //       }
            //------------------------  
-    
+    var index;
        
         $scope.agregar=function(parametro)
         {
+          if(contains(ListPr,parametro)){
+            ListPr[index].cant= ListPr[index].cant+1;
+            console.info("Lo contienenennene");
+          }
+          else{
+            parametro.cant=1;
+            ListPr.push(parametro); 
+          }
+                   
+          $scope.gridOptionsMisProdSel.data=ListPr;
           
-          
-          ListPr.push(parametro); 
+
         }
 
+        function contains(a, obj) {
+          for (var i = 0; i < a.length; i++) {
+            if (a[i] === obj) {
+              index= i;
+              return true;
+            }
+          }
+          return false;
+        }
+       
+       $scope.EliminarPsel=function(param)
+        {
+    
+          
+          var lst=[];
+     
+          ListPr.forEach(function(p)
+          {
+
+              if (p['id_producto']==param['id_producto']) 
+              {
+               
+                if (band==false) 
+                {
+                  console.info(band);
+                  console.info("entro se excluye:",p['id_producto']);
+                  console.info("param reciv:",param['id_producto']);
+                  var band=true;
+                }else{
+                  console.info(band);
+                  console.info("entro se incluye:",p['id_producto']);
+                  console.info("param reciv:",param['id_producto']);
+                  lst.push(p);  
+                } 
+              }else
+              {     
+                if (band==false) 
+                {
+                  console.info(band);
+                  console.info("entro se incluye:",p['id_producto']);
+                  console.info("param reciv:",param['id_producto']);
+                  lst.push(p);
+                }
+              }
+          })
+          
+          ListPr=lst;
+          
+           $scope.gridOptionsMisProdSel.data=ListPr;
+          
+        }
       
 
         $scope.pedir=function()
@@ -180,7 +243,9 @@ angular
               console.info("LISTA VACIA:",ListPr);
               $state.go("MisPedidos"); 
         }
-      
+
+        
+ 
 
          $scope.verpp=function(param)
          {
@@ -234,11 +299,12 @@ angular
           },
           { field: 'precio', name: 'precio', width: 120
           ,enableFiltering: false
+          },
+          { field: 'cant', name: 'cant', width: 120
+          ,enableFiltering: false
           }
            ]
         };
-
-
 
 
     function columnDefsCom () {
@@ -256,6 +322,28 @@ angular
 
       ];
     }
+
+
+
+    function columnDefsPsel () {
+      return [
+         { field: 'id_producto', name: 'id_producto', width: 120
+          ,enableFiltering: false
+         },
+         { field: 'descripcion', name: 'descripcion', width: 120
+          ,enableFiltering: false
+         },
+         { field: 'precio', name: 'precio', width: 120
+          ,enableFiltering: false
+         }, 
+         { field: 'cant', name: 'cant', width: 120
+          ,enableFiltering: false
+         },
+         { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.EliminarPsel(row.entity)">'},
+
+      ];
+    }
+
 
 
 
