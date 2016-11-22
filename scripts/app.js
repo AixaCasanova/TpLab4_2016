@@ -156,12 +156,16 @@ angular
       templateUrl: 'views/pedidos.html',
       controller:'CtrolPedidos'
     })
-      .state('MisPedidos', {
+    .state('MisPedidos', {
       url: '/MisPedidos',
       templateUrl: 'views/MisPedidos.html',
       controller:'CtrolPedidos'
     })
-      
+    .state('sucursales', {
+      url: '/sucursales',
+      templateUrl: 'views/sucursales.html',
+      controller:'CtrolSucursales'
+    })
 
       
     

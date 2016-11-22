@@ -133,6 +133,7 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
  $app->post('/AltaPed/{objeto}', function ($request, $response, $args) {
  
     $prod=json_decode($args['objeto']);
+    
     $UnPedido = new pedidos();
     $UnPedido->lista_productos = $prod->lista_productos;
     $UnPedido->total_pedido = $prod->total_pedido;
@@ -142,13 +143,13 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
 
     $idp=pedidos::TraerUltimoId();
              
-       foreach ($prod->lista_productos as $p ) 
-       {
-        $intp = (int)$p;
-        $res=pedidos::InsertarDetPed($intp,$idp->id_pedidos);
-       }    
-    
-       return $response;
+      foreach ($prod->lista_productos as $p ) 
+      {
+        $idpr = $p->idp;
+        $cantidad=$p->cant;
+        $res=pedidos::InsertarDetPed($idpr,$idp->id_pedidos,$cantidad);
+      }    
+      return $response;      
     
 });
 

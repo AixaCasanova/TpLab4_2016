@@ -91,7 +91,7 @@ class pedidos
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select p.descripcion ,p.precio, p.id_producto , dpcant from det_ped as dp, productos as p where id_pedidos =:id_p and dp.id_producto = p.id_producto");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select p.descripcion ,p.precio, p.id_producto , dp.cant from det_ped as dp, productos as p where id_pedidos =:id_p and dp.id_producto = p.id_producto");
 		$consulta->bindValue(':id_p', $id_p, PDO::PARAM_INT);
 		$consulta->execute();			
 		$arrp= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	

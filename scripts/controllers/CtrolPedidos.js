@@ -4,9 +4,9 @@ angular
    {
 
 
-         var ListPr = [];
+     var ListPr = [];
+     var ListDetalle = [];
      var total=0;
-     var Ids=[];
      $scope.veoGrilla=false;
 
      $scope.gridOptionsPedidos = {};
@@ -143,7 +143,7 @@ angular
         {
           if(contains(ListPr,parametro)){
             ListPr[index].cant= ListPr[index].cant+1;
-            console.info("Lo contienenennene");
+             
           }
           else{
             parametro.cant=1;
@@ -212,27 +212,48 @@ angular
         {
 
           //gridOptionsPedidos
+          var Ids=[];
+          var detp=[];
+          var suma=0;
+           console.info("lst",ListPr);
 
-          console.info("LISTA LLENA:",ListPr);
            ListPr.forEach(function(p)
            {
-             total=total+ p['precio'];
-             Ids.push(p['id_producto']);
-             console.info("P:",p);
-             $state.go("MisPedidos");
+            
+             total=p['cant']*p['precio'];
+             console.info("tot",total);
+             suma=suma+total;        
+             console.info("suma",suma);
+             //detp.total=total;
+             //detp.cant=p['cant'];
+             //detp.idp=p['id_producto'];
+
+
+
+            detp = {"total":total,"cant":p['cant'],"idp":p['id_producto']}
+
+
+
+             console.info('detp',detp);  
+             Ids.push(detp);
+             detp =[];
+             
        
              })
 
            $scope.datos=$auth.getPayload();
 
+           ListDetalle = Ids;
+
            $scope.pedido={};
-           $scope.pedido.total_pedido=total;
-           $scope.pedido.lista_productos=Ids;
+           $scope.pedido.total_pedido=suma;
+           $scope.pedido.lista_productos=ListDetalle;
            $scope.pedido.id_user=$scope.datos.id_user;
-           console.info("ped:",$scope.pedido);
+         
+            console.info("p a enviar",$scope.pedido);
             ServPedido.AltaP(JSON.stringify($scope.pedido)).then(function(resp)
                   {          
-                    console.info(resp);
+                    console.info("q s envio:",resp);
                      
                   }) 
              total=0;
@@ -240,7 +261,8 @@ angular
               ListPr = [];
               Ids="";
               Ids=[];
-              console.info("LISTA VACIA:",ListPr);
+              detp=[];
+             suma=0; 
               $state.go("MisPedidos"); 
         }
 
@@ -251,6 +273,7 @@ angular
          {
 
            console.info("param",param);
+          
            $scope.gridOptionsProd={};
            $scope.veoGrilla=true;
            $scope.gridOptionsMisProdPedidos.paginationPageSizes = [25, 50, 75];
