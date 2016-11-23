@@ -3,15 +3,14 @@ angular
   .controller('CtrolPedidos', function($scope,$rootScope, data,$auth, $auth,$stateParams,$state, ServPedido, i18nService, uiGridConstants)
    {
 
-
+    var index = -1;
      var ListPr = [];
      var ListDetalle = [];
      var total=0;
      $scope.veoGrilla=false;
 
      $scope.gridOptionsPedidos = {};
-     $scope.gridOptionsPedidos.paginationPageSizes = [25, 50, 75];
-     $scope.gridOptionsPedidos.paginationPageSize = 25;
+      $scope.gridOptionsPedidos.width=10;
      $scope.gridOptionsPedidos.columnDefs = columnDefsCom();
     
       $scope.gridOptionsMisPedidos = {};
@@ -137,7 +136,7 @@ angular
             //             })      
             //       }
            //------------------------  
-    var index;
+      
        
         $scope.agregar=function(parametro)
         {
@@ -152,13 +151,25 @@ angular
                    
           $scope.gridOptionsMisProdSel.data=ListPr;
           
-
+          index =-1;
         }
+
+        var index;
 
         function contains(a, obj) {
           for (var i = 0; i < a.length; i++) {
             if (a[i] === obj) {
-              index= i;
+              index = i;
+              return true;
+            }
+          }
+          return false;
+        }
+
+                function contains2(a, obj) {
+          for (var i = 0; i < a.length; i++) {
+            if (a[i] === obj) {
+              index = i;
               return true;
             }
           }
@@ -167,43 +178,21 @@ angular
        
        $scope.EliminarPsel=function(param)
         {
-    
+          if(contains(ListPr,param)){
           
-          var lst=[];
-     
-          ListPr.forEach(function(p)
-          {
-
-              if (p['id_producto']==param['id_producto']) 
-              {
-               
-                if (band==false) 
-                {
-                  console.info(band);
-                  console.info("entro se excluye:",p['id_producto']);
-                  console.info("param reciv:",param['id_producto']);
-                  var band=true;
-                }else{
-                  console.info(band);
-                  console.info("entro se incluye:",p['id_producto']);
-                  console.info("param reciv:",param['id_producto']);
-                  lst.push(p);  
-                } 
-              }else
-              {     
-                if (band==false) 
-                {
-                  console.info(band);
-                  console.info("entro se incluye:",p['id_producto']);
-                  console.info("param reciv:",param['id_producto']);
-                  lst.push(p);
+            if(ListPr[index].cant > 1){
+                ListPr[index].cant= ListPr[index].cant-1;
+             }  
+             else if(ListPr[index].cant == 1){
+                var indexAux = ListPr.indexOf(param);
+            
+                if (indexAux > -1) {
+                    ListPr.splice(indexAux, 1);
                 }
-              }
-          })
-          
-          ListPr=lst;
-          
-           $scope.gridOptionsMisProdSel.data=ListPr;
+             }
+          }
+          $scope.gridOptionsMisProdSel.data=ListPr;
+          index =-1;
           
         }
       
