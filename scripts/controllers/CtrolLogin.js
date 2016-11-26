@@ -6,39 +6,43 @@ angular
  //-------------------
 
  
-       if ($auth.isAuthenticated()) {
-       
-        var datos=$auth.getPayload();
-      
-        $rootScope.usuarioAver="Bienvenido "+ datos['nombre'];  
-         $rootScope.SeVe=true;
-        $rootScope.userAVer="Bienvenido "+ datos['nombre'];
+      if ($auth.isAuthenticated()) 
+      {    
+          var datos=$auth.getPayload();
+          $scope.ver=true;
+          $rootScope.usuarioAver="Bienvenido "+ datos['nombre'];  
+           $rootScope.SeVe=true;
+          $rootScope.userAVer="Bienvenido "+ datos['nombre'];
 
-        if (datos['perfil'] == "administrador") {
-        
-        console.info("datos.perfil: ",datos['perfil'])
-
-          $rootScope.esAdmin=true;
-          $rootScope.esVend=true;
-        }else if (datos['perfil'] == "comprador") {
-          $rootScope.esAdmin=false;
-          $rootScope.esVend=false;
-        }else if (datos['perfil'] == "vendedor") {
-          $rootScope.esAdmin=false;         
-          $rootScope.esVend=true;
-        } 
-        else if (datos['perfil'] == "encargado") {
-          $rootScope.esAdmin=false;         
-          $rootScope.esVend=true;
-          //modificarr!!!!
-        } 
-       
-      }else{
-        console.info("llega al ctrol gral?3")
-        console.info("notoken",$auth.getPayload());
-          $rootScope.SeVe=false;
-          $rootScope.usuarioAver="";
-   
+          if (datos['perfil'] == "administrador") 
+          {
+              console.info("datos.perfil: ",datos['perfil'])
+              $rootScope.esEnc=true;
+              $rootScope.esAdmin=true;
+              $rootScope.esVend=true;
+          }else if (datos['perfil'] == "comprador") 
+          {
+              $rootScope.esAdmin=false;
+              $rootScope.esVend=false;
+              $rootScope.esEnc=false;
+          }else if (datos['perfil'] == "encargado") 
+          {
+              $rootScope.esAdmin=false;
+              $rootScope.esVend=true;
+              $rootScope.esEnc=true;
+          }else if (datos['perfil'] == "vendedor")
+          {
+              $rootScope.esAdmin=false;         
+              $rootScope.esVend=true;
+              $rootScope.esEnc=false;       
+          }else
+          {
+            $scope.ver=false;
+            console.info("llega al ctrol gral?3")
+            console.info("notoken",$auth.getPayload());
+            $rootScope.SeVe=false;
+            $rootScope.usuarioAver="";
+          }
       }
 
  //----------------------
