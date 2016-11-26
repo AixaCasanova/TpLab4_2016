@@ -9,7 +9,7 @@ angular
        if ($auth.isAuthenticated()) {
        
         var datos=$auth.getPayload();
-      
+        $scope.ver=true;
         $rootScope.usuarioAver="Bienvenido "+ datos['nombre'];  
          $rootScope.SeVe=true;
         $rootScope.userAVer="Bienvenido "+ datos['nombre'];
@@ -38,7 +38,7 @@ angular
         console.info("notoken",$auth.getPayload());
           $rootScope.SeVe=false;
           $rootScope.usuarioAver="";
-   
+           $scope.ver=false;
       }
 
  //----------------------
@@ -204,8 +204,8 @@ angular
           { field: 'sucursal', name: 'sucursal', width: 120
           ,enableFiltering: false
         },
-        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.IrModificar(row.entity)">'},
-        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.IrEliminar(row.entity)">'},
+        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button" class="btn btn-warning" value="Modificar" ng-click="grid.appScope.IrModificar(row.entity)">'},
+        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button" class="btn btn-danger" value="Eliminar" ng-click="grid.appScope.IrEliminar(row.entity)">'},
         
 
         //---------------

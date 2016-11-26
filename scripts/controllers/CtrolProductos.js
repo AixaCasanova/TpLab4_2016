@@ -7,7 +7,7 @@ angular
 
  
        if ($auth.isAuthenticated()) {
-       
+       $scope.ver=true;
         var datos=$auth.getPayload();
       
         $rootScope.usuarioAver="Bienvenido "+ datos['nombre'];  
@@ -38,7 +38,7 @@ angular
         console.info("notoken",$auth.getPayload());
           $rootScope.SeVe=false;
           $rootScope.usuarioAver="";
-   
+         $scope.ver=false;
       }
 
  //----------------------
@@ -167,8 +167,8 @@ angular
          { field: 'precio', name: 'precio', width: 120
           ,enableFiltering: false
         },      
-            { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.IrModificarP(row.entity)">'},
-            { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.IrEliminarP(row.entity)">'},
+            { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" class="btn btn-warning" ng-click="grid.appScope.IrModificarP(row.entity)">'},
+            { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" class="btn btn-danger" ng-click="grid.appScope.IrEliminarP(row.entity)">'},
           
 
       ];

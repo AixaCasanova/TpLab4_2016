@@ -1,4 +1,7 @@
 <div>
   <h3>Ofertas</h3>
+<div ng-if="esVend">
+  <input type="button" class="btn btn-default" ui-sref="AltaOferta" style="color:black" name="AltaOferta" value="Nueva oferta"><br><br>
+  </div> 
   <div ui-grid="gridOptionsOfertas" class="myGrid"></div>
 </div>

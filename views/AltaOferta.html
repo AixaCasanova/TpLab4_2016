@@ -1,0 +1,15 @@
+ 
+<form id="frm" name="frm">
+	<center>
+
+		Descripcion: <input type="text" name="descripcion" ng-model="producto.descripcion" ><br><br>
+		Precio: $<input type="number" name="precio" ng-model="producto.precio" ><br><br>
+		Sucursal:
+		 <select ng-model="SucElegida">
+		 <option ng-repeat="s in Lsucursales" value={{s.nombre}}>{{s.nombre}}</option>
+		</select><br><br>   
+		<input type="button" class="btn btn-default" ng-click="AltaP()" style="color:black" name="AltaP" value="Dar de alta" >
+		<input type="button" class="btn btn-default" ng-click="Volver()" style="color:black" name="Volver" value="Volver" ><br><br>
+
+	</center>
+</form>

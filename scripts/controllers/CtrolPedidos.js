@@ -43,7 +43,7 @@ angular
        {
        
           var datos=$auth.getPayload();
-          
+          $scope.ver=true;
           $rootScope.usuarioAver="Bienvenido "+ datos['nombre'];  
            $rootScope.SeVe=true;
           $rootScope.userAVer="Bienvenido "+ datos['nombre'];
@@ -66,7 +66,7 @@ angular
             $rootScope.esVend=true;
             //modificarr!!!!
           }else{
-            
+            $scope.ver=false;
             console.info("notoken",$auth.getPayload());
             $rootScope.SeVe=false;
             $rootScope.usuarioAver="";
@@ -90,52 +90,7 @@ angular
 
         }
 
- //----------------------
 
-
-
-
-
-    
-
-            // $scope.IrModificarP = function(parametro)
-            // {
-
-            //   console.log("que tiene el param??",parametro);
-            //   $state.go("ModifP",{parametro:parametro});
-            // }
-            
-            //  $scope.IrEliminarP = function(parametro)
-            // {
-            //   //console.info(parametro['nombre']);
-              
-            //   $state.go("EliminarP",{parametro:parametro});
-            // }
-        
-
-
-            //      $scope.ModifP=function()
-            //       {
-
-            //           ServProducto.ModifP(JSON.stringify($scope.producto)).then(function(resp)
-            //             {          
-            //               console.info(resp);
-            //                 $state.go("productos");
-
-            //             })      
-            //       }
-
-            // $scope.EliminarP=function()
-            //       {
-
-            //           ServProducto.EliminarP(JSON.stringify($scope.producto)).then(function(resp)
-            //             {          
-            //               console.info(resp);
-            //                 $state.go("productos");
-
-            //             })      
-            //       }
-           //------------------------  
       
        
         $scope.agregar=function(parametro)
@@ -293,7 +248,7 @@ angular
           { field: 'id_pedidos', name: 'id_pedidos', width: 120
           ,enableFiltering: false
           },
-          { field: 'productos', name: 'productos', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="productos pedidos" ng-click="grid.appScope.verpp(row.entity)">'}
+          { field: 'productos', name: 'productos', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="productos pedidos" class="btn btn-default" ng-click="grid.appScope.verpp(row.entity)">'}
           ,{ field: 'total_pedido', name: 'total_pedido', width: 120
           ,enableFiltering: false
           }
@@ -330,7 +285,7 @@ angular
          { field: 'precio', name: 'precio', width: 120
           ,enableFiltering: false
          }, 
-         { field: 'agregar', name: 'agregar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="agregar" ng-click="grid.appScope.agregar(row.entity)">'},
+         { field: 'agregar', name: 'agregar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="agregar" class="btn btn-default" ng-click="grid.appScope.agregar(row.entity)">'},
 
       ];
     }
@@ -351,7 +306,7 @@ angular
          { field: 'cant', name: 'cant', width: 120
           ,enableFiltering: false
          },
-         { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.EliminarPsel(row.entity)">'},
+         { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" class="btn btn-danger" ng-click="grid.appScope.EliminarPsel(row.entity)">'},
 
       ];
     }

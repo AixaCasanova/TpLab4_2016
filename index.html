@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
   
  
 
@@ -33,19 +34,29 @@
     <script src="bower_components/satellizer/dist/satellizer.js"></script>
     <script src="bower_components/satellizer/dist/satellizer.min.js"></script>
     <script src="scripts/app.js"></script>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+   
+   <!--  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <style type="text/css">
+        body {
+            font-family: 'Indie Flower', cursive;
+        }
+    </style>
+ -->
+ 
+<link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
+   <style type="text/css">
+        body {
+           font-family: 'Patrick Hand', cursive;
+        }
+    </style>
 
 </head>
 
 <body ng-app="app">
 
+    <!-- <center><h1><div style="color:black">Pizzerias Argenta</div></h1></center> -->
     <div class="brand">Pizzerias Argenta</div>
+    
     <div class="address-bar" ng-if="SeVe"> {{userAVer}} </div>
 
     <!-- Navigation -->
@@ -60,21 +71,23 @@
                     <span class="icon-bar"></span>
                 </button>
                 <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
-                <a class="navbar-brand" href="index.html">Business Casual</a>
+                <a class="navbar-brand" href="index.html">Pizzerias Argenta</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                   <li><a ui-sref="login">login</a></li> 
-                  <li><a ui-sref="sucursales">sucursales</a></li> 
+                    
+                    <li><a ui-sref="Principal">Inicio</a></li> 
+                    <li><a ui-sref="login">login</a></li> 
+                    <li><a ng-if="esAdmin && SeVe" ui-sref="usuarios">usuarios</a></li>
 
-                      <li><a ng-if="esAdmin && SeVe" ui-sref="usuarios">usuarios</a></li> 
-                      <li><a  ng-if="esAdmin  && SeVe" ui-sref="empleados">empleados</a></li>
-                      <li><a ng-if="esVend  && SeVe" ui-sref="clientes">clientes</a></li>
-                      <li><a  ng-if="esVend  && SeVe" ui-sref="encargados">encargados</a></li> 
-                      <li><a ng-if="SeVe" ui-sref="productos">productos</a></li> 
-                      <li><a ng-if="SeVe" ui-sref="ofertas">ofertas</a></li>
-                      <li><a ng-if="SeVe" ui-sref="MisPedidos">pedidos</a></li>
+                    <li><a  ng-if="esAdmin  && SeVe" ui-sref="empleados">empleados</a></li>
+                    <li><a ng-if="esVend  && SeVe" ui-sref="clientes">clientes</a></li>
+                    <li><a  ng-if="esVend  && SeVe" ui-sref="encargados">encargados</a></li> 
+                    
+                    <li><a ng-if="SeVe" ui-sref="productos">productos</a></li> 
+                    <li><a ng-if="SeVe" ui-sref="ofertas">ofertas</a></li>
+                    <li><a ng-if="SeVe" ui-sref="MisPedidos">pedidos</a></li>
                     
                      
                 </ul>
@@ -89,7 +102,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Aixa Casanova 2016</p>
                 </div>
             </div>
         </div>
@@ -100,7 +113,7 @@
     <!-- Script to Activate the Carousel -->
     <script>
     $('.carousel').carousel({
-        interval: 5000 //changes the speed
+        interval: 1000 //changes the speed
     })
     </script>
 
@@ -115,6 +128,7 @@
     <script src="scripts/controllers/CtrolClientes.js"></script>
     <script src="scripts/controllers/CtrolEncargados.js"></script>
     <script src="scripts/controllers/CtrolPedidos.js"></script>
+    <script src="scripts/controllers/CtrolSucursales.js"></script>
     <script src="scripts/controllers/CtrolSucursales.js"></script>
 
     <!-- services -->
@@ -152,6 +166,11 @@
     <script src="scripts/services/pedidos/ServPedido.js"></script> 
     <script src="scripts/services/pedidos/ServPedidoBase.js"></script> 
     <script src="scripts/services/pedidos/FactorybddPedido.js"></script> 
+
+    <script src="scripts/services/Sucursales/ServSucursales.js"></script> 
+    <script src="scripts/services/Sucursales/ServSucursalesBase.js"></script> 
+    <script src="scripts/services/Sucursales/FactorybddSucursales.js"></script> 
+
 
 </body>
 

@@ -182,8 +182,8 @@ angular
           { field: 'sucursal', name: 'sucursal', width: 120
           ,enableFiltering: false
         },
-        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" ng-click="grid.appScope.IrModificarEnc(row.entity)">'},
-        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" ng-click="grid.appScope.IrEliminarEnc(row.entity)">'},
+        { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button" class="btn btn-warning" value="Modificar" ng-click="grid.appScope.IrModificarEnc(row.entity)">'},
+        { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button" class="btn btn-danger" value="Eliminar" ng-click="grid.appScope.IrEliminarEnc(row.entity)">'},
         
 
 

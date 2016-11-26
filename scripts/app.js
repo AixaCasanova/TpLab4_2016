@@ -18,7 +18,7 @@ angular
     $authProvider.tokenPrefix = "Aplicacion";
     $authProvider.authHeader="data";
 
-    $urlRouterProvider.otherwise('#');
+    $urlRouterProvider.otherwise('Principal');
     $stateProvider
     .state('inicio', {
       url: '/inicio',
@@ -161,10 +161,27 @@ angular
       templateUrl: 'views/MisPedidos.html',
       controller:'CtrolPedidos'
     })
-    .state('sucursales', {
-      url: '/sucursales',
+    .state('Principal', {
+      url: '/Principal',
       templateUrl: 'views/sucursales.html',
       controller:'CtrolSucursales'
+    })
+     .state('AltaOferta', {
+      url: '/AltaOferta',
+      templateUrl: 'views/AltaOferta.html',
+      controller:'CtrolOfertas'
+    })
+    .state('ModifOf', {
+      url: '/ModifOf',
+      templateUrl: 'views/ModifOferta.html',
+      controller:'CtrolOfertas',
+       params:{'parametro':'parametro'} 
+    })
+        .state('EliminarOf', {
+      url: '/EliminarOf',
+      templateUrl: 'views/EliminarOferta.html',
+      controller:'CtrolOfertas',
+       params:{'parametro':'parametro'} 
     })
 
       

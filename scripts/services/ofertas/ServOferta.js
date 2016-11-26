@@ -5,16 +5,22 @@ angular
     var objeto = {};
     objeto.nombre = "Factory con servicio de Banderas";
     objeto.TraerTodos = TraerTodos;
+    objeto.TraerListaSuc=TraerListaSuc;
    
     return objeto;
 
  
     function TraerTodos(){
-     console.info("desde la factory con servicio",ServOfertaBase);
+     
      return ServOfertaBase.TraerTodos();
 
     };
 
+
+    function TraerListaSuc(){
+       return ServOfertaBase.TraerListaSuc();
+
+    };
 
  
 
