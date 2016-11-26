@@ -10,6 +10,7 @@ angular
     objeto.Api4 ="http://localhost:8026/TpLab4_2016/ws/AltaPed";
     objeto.Api5 ="http://localhost:8026/TpLab4_2016/ws/productos";
     objeto.Api6 ="http://localhost:8026/TpLab4_2016/ws/pedidosDT";
+    objeto.Api7 ="http://localhost:8026/TpLab4_2016/ws/sucursales";
     
     return objeto;
 
@@ -30,6 +31,19 @@ angular
       return $http.get(TraerUrl()).then(
         function (respuesta){
            
+          return respuesta.data;
+        },
+        function (error){
+          return error;
+        }
+        );
+    }
+
+
+       function TraerListaSuc(){
+        return $http.get(TraerUrl()).then(
+        function (respuesta){
+        console.info("resp factory suc:",respuesta);
           return respuesta.data;
         },
         function (error){

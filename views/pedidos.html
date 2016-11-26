@@ -1,6 +1,10 @@
 <div> 
 	<h3>Pedido</h3>
 	<div ng-if="ver==true">
+		Sucursal:
+		 <select ng-model="SucElegida">
+		 <option ng-repeat="s in Lsucursales" value={{s.nombre}}>{{s.nombre}}</option>
+		</select><br><br>  
 	   	<div ui-grid="gridOptionsPedidos" class="myGrid"></div><br><br>
 	   	<center><h3>Productos elegidos</h3></center><br> 
 	   	<div ui-grid="gridOptionsMisProdSel" class="myGrid"></div><br><br>

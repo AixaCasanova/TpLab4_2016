@@ -88,14 +88,28 @@ angular
 
             ServPedido.TraerTodos(iduser).then(function(resp)
             {
-              console.info("resp1:",resp);
-              
-              $scope.gridOptionsMisPedidos.data=resp;
-               
+              console.info("resp1 a correg:",resp);
+
+
+              if ($stateParams[0] == null) {
+                $scope.gridOptionsMisPedidos.data=resp;
+              }
 
              });
 
         }
+
+
+         ServPedido.TraerListaSuc().then(function(resp){
+          var lstS=[];
+          resp.forEach(function(r){
+                if(r.nombre!="NoAplica"){
+                  lstS.push(r);
+                }
+              })
+            $scope.Lsucursales=lstS;    
+            $scope.SucElegida=lstS[0].nombre;
+         });
 
 
       
@@ -162,12 +176,18 @@ angular
         $scope.pedir=function()
         {
 
-          //gridOptionsPedidos
+
+          var vend="";
           var Ids=[];
           var detp=[];
           var suma=0;
+          var time = Date.now();
            console.info("lst",ListPr);
-
+           if (datos['perfil'] == "comprador") {
+            vend="autogest";
+          }else{
+            vend=datos["id_user"];
+          }
            ListPr.forEach(function(p)
            {
             
@@ -181,8 +201,8 @@ angular
 
 
 
+           // detp = {"total":total,"cant":p['cant'],"idp":p['id_producto']}
             detp = {"total":total,"cant":p['cant'],"idp":p['id_producto']}
-
 
 
              console.info('detp',detp);  
@@ -195,11 +215,14 @@ angular
            $scope.datos=$auth.getPayload();
 
            ListDetalle = Ids;
-
+  
            $scope.pedido={};
            $scope.pedido.total_pedido=suma;
            $scope.pedido.lista_productos=ListDetalle;
            $scope.pedido.id_user=$scope.datos.id_user;
+           $scope.pedido.empleado=vend;
+           $scope.pedido.fecha=time;
+           $scope.pedido.sucursal=$scope.SucElegida;
          
             console.info("p a enviar",$scope.pedido);
             ServPedido.AltaP(JSON.stringify($scope.pedido)).then(function(resp)
@@ -256,6 +279,12 @@ angular
           ,enableFiltering: false
           },
           { field: 'productos', name: 'productos', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="productos pedidos" class="btn btn-default" ng-click="grid.appScope.verpp(row.entity)">'}
+          ,{ field: 'fecha', name: 'fecha', width: 120 ,enableFiltering: false
+          }
+          ,{ field: 'sucursal', name: 'sucursal', width: 120 ,enableFiltering: false
+          }
+          ,{ field: 'empleadoNom', name: 'empleadoNom', width: 120 ,enableFiltering: false
+          }
           ,{ field: 'total_pedido', name: 'total_pedido', width: 120
           ,enableFiltering: false
           }

@@ -10,6 +10,7 @@ angular
     var urlProd=factorybddPedido.Api5;
     var url = factorybddPedido.Api;
     var urlTD = factorybddPedido.Api6;
+    var urlS = factorybddPedido.Api7;
     
 
     //Esta funcion es privada
@@ -47,12 +48,31 @@ angular
            else if (accion=="prod") {
                 return urlProd;
            }
+            else if (accion=="suc") {
+                return urlS;
+           }
            else{
               return url + "/" + parametro;;
             }
         }
 
       } 
+
+
+        this.TraerListaSuc =function()
+        {
+           qhago="suc";
+          return $http.get(TraerUrl("NA",qhago)).then(
+          function (respuesta){
+   
+            return respuesta.data;
+            
+          },
+          function (error){
+            return error;
+          }
+          );
+        }
 
          this.AltaP =function(p){
             

@@ -7,6 +7,7 @@ angular
     objeto.TraerTodos = TraerTodos;
     objeto.ModifP=ModifP;
     objeto.AltaP = AltaP;
+    objeto.TraerListaSuc=TraerListaSuc;
     objeto.EliminarP=EliminarP;
     objeto.TraerP=TraerP;
     objeto.TraerTodosD=TraerTodosD;
@@ -14,7 +15,10 @@ angular
     return objeto;
 
     
-    
+     function TraerListaSuc(){
+       return ServPedidoBase.TraerListaSuc();
+
+    };
 
     function TraerTodos(id){
    

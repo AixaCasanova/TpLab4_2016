@@ -138,6 +138,9 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
     $UnPedido->lista_productos = $prod->lista_productos;
     $UnPedido->total_pedido = $prod->total_pedido;
     $UnPedido->id_user=$prod->id_user;
+    $UnPedido->fecha=$prod->fecha;
+    $UnPedido->sucursal=$prod->sucursal;
+    $UnPedido->empleado=$prod->empleado;
     $dato=pedidos::InsertarPedidos($UnPedido);  
     $response->write(json_encode($dato));
 
