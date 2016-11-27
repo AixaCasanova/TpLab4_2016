@@ -18,7 +18,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
-
+    
     <link href="./bower_components/bootstrap/css/business-casual.css" rel="stylesheet">
      <link rel="stylesheet" href="./bower_components/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-grid/ui-grid.min.css">
@@ -34,7 +34,7 @@
     <script src="bower_components/satellizer/dist/satellizer.js"></script>
     <script src="bower_components/satellizer/dist/satellizer.min.js"></script>
     <script src="scripts/app.js"></script>
-   
+   <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
    <!--  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <style type="text/css">
         body {
@@ -80,7 +80,7 @@
                     <li><a ui-sref="Principal">Inicio</a></li> 
                     <li><a ui-sref="login">login</a></li> 
                     <li><a ng-if="esAdmin && SeVe" ui-sref="usuarios">usuarios</a></li>
-
+                    <li><a ng-if="esAdmin && SeVe" ui-sref="sucursales">sucursales</a></li>
                     <li><a  ng-if="(esEnc && !esAdmin) && SeVe" ui-sref="empleados">empleados</a></li>
                     <li><a ng-if="(esVend && !esAdmin) && SeVe" ui-sref="clientes">clientes</a></li>
                     <li><a  ng-if="esAdmin  && SeVe" ui-sref="encargados">encargados</a></li> 

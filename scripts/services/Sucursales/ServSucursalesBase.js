@@ -9,11 +9,12 @@ angular
     var urlA = factorybddSucursales.Api4;*/
     
     var url = factorybddSucursales.Api;
+    var urlloc = factorybddSucursales.Api2;
 
     //Esta funcion es privada
    
 
-      function TraerUrl(parametro)//,accion
+      function TraerUrl(parametro,accion)//,accion
       {
  
         if (!parametro)
@@ -23,14 +24,15 @@ angular
           return url;
         }
         else{
-        /*
-           if (accion=="modif")
+     
+           if (accion=="loc")
            {
- 
-             return urlM + "/" + parametro;
+            
+
+             return urlloc + "/" + parametro;
         
            }
-            else if (accion=="elim") {
+             /*  else if (accion=="elim") {
                  return urlE + "/" + parametro;
             }
            else if (accion=="alta") {
@@ -57,6 +59,24 @@ angular
           }
           );
       }
+
+      
+       this.InsertarLocal =function(loc){
+ 
+         qhago="loc";
+        return $http.get(TraerUrl(loc,qhago)).then(
+          function (respuesta){
+    
+            return respuesta.data;
+            
+          },
+          function (error){
+            return error;
+          }
+          );
+      }
+
+
 /*
          this.AltaP =function(p){
             

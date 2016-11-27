@@ -5,6 +5,7 @@ angular
     objeto.nombre = "Factory de Rutas";
 
     objeto.Api ="http://localhost:8026/TpLab4_2016/ws/sucursales";
+    objeto.Api2 ="http://localhost:8026/TpLab4_2016/ws/sucursalesUp";
     /*objeto.Api2 ="http://localhost:8026/TpLab4_2016/ws/ModifP";
     objeto.Api3 ="http://localhost:8026/TpLab4_2016/ws/ElimP";
     objeto.Api4 ="http://localhost:8026/TpLab4_2016/ws/AltaP";*/
@@ -12,6 +13,18 @@ angular
 
 
     function TraerTodos(){
+      return $http.get(TraerUrl()).then(
+        function (respuesta){
+           
+          return respuesta.data;
+        },
+        function (error){
+          return error;
+        }
+        );
+    }
+
+    function InsertarLocal(img){
       return $http.get(TraerUrl()).then(
         function (respuesta){
            

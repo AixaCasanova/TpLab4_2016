@@ -43,6 +43,31 @@ $app->get('/productos[/]', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/sucursalesUp[/{objeto}]', function ($request, $response, $args) {
+  
+
+    $sucursal=json_decode($args['objeto']);
+    $sucursal->fotos=explode(';',$sucursal->fotos);
+    $arrayFoto = array();
+    if(count($sucursal->fotos) > 0){
+        for ($i = 0; $i < count($sucursal->fotos); $i++ ){
+            $rutaVieja="imagenes/".$sucursal->fotos[$i];
+            $rutaNueva=$sucursal->nombre. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
+            //copy($rutaVieja, "fotos/".$rutaNueva);
+            //unlink($rutaVieja);
+            //$arrayFoto[]="http://localhost:8026/TpLab4_2016/imagenes/Sucursales/".$rutaNueva;
+             return json_encode($rutaNueva);
+        } 
+
+        //$sucursal->fotos=json_encode($arrayFoto); 
+
+    }
+        //  return $response->write(Local::InsertarLocal($local)); 
+  //-----------------
+  
+   
+});
+
  
 
 $app->get('/pedidos[/{objeto}]', function ($request, $response, $args) {

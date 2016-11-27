@@ -75,7 +75,7 @@ angular
     i18nService.setCurrentLang('es');
     
      $scope.producto ={};
-     console.info("parametros",$stateParams);  
+     
      if ($stateParams['parametro'] != null ) 
       {
         var ObjRecibido=$stateParams['parametro'];

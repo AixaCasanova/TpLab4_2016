@@ -5,6 +5,7 @@ angular
     var objeto = {};
     objeto.nombre = "";
     objeto.TraerTodos = TraerTodos;
+    objeto.InsertarLocal=InsertarLocal;
     /*objeto.ModifP=ModifP;
     objeto.AltaP = AltaP;
     objeto.EliminarP=EliminarP;*/
@@ -18,6 +19,13 @@ angular
     function TraerTodos(){
    
       return ServSucursalesBase.TraerTodos();
+ 
+    };
+
+   function InsertarLocal(loc){
+   
+    console.info(loc);
+      return ServSucursalesBase.InsertarLocal(loc);
  
     };
 

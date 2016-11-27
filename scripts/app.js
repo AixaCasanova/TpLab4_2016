@@ -8,7 +8,8 @@ angular
     'ui.grid.exporter',
     'ui.grid.edit',
     'ngMap',
-    'satellizer'
+    'satellizer',
+    'angularFileUpload'
     ]
     )
   .config(function ($stateProvider, $urlRouterProvider, $authProvider) {
@@ -26,166 +27,179 @@ angular
     })
     .state('usuarios', {
       url: '/usuarios',
-      templateUrl: 'views/usuarios.html',
+      templateUrl: 'views/Usuarios/usuarios.html',
       controller:'CtrolUsuario'
     })
     .state('productos', {
       url: '/productos',
-      templateUrl: 'views/productos.html',
+      templateUrl: 'views/productos/productos.html',
       controller:'CtrolProductos'
     })
     .state('login', {
       url: '/login',
-      templateUrl: 'views/login.html',
+      templateUrl: 'views/login/login.html',
       controller:'CtrolLogin'
     })
      .state('empleados', {
       url: '/empleados',
-      templateUrl: 'views/empleados.html',
+      templateUrl: 'views/empleado/empleados.html',
       controller:'CtrolEmpleados',
       params:{'parametro':'parametro'} 
     })
     .state('clientes', {
       url: '/clientes',
-      templateUrl: 'views/clientes.html',
+      templateUrl: 'views/clientes/clientes.html',
       controller:'CtrolClientes'
     })
     .state('AltaCliente', {
       url: '/AltaCliente',
-      templateUrl: 'views/AltaClienteS.html',
+      templateUrl: 'views/clientes/AltaClienteS.html',
       controller:'CtrolClientes'
     })
     .state('ModifCli', {
       url: '/ModifCli',
-      templateUrl: 'views/ModifClientes.html',
+      templateUrl: 'views/clientes/ModifClientes.html',
       controller:'CtrolClientes',
       params:{'parametro':'parametro'} 
     })
     .state('EliminarCli', {
       url: '/EliminarCli',
-      templateUrl: 'views/EliminarClientes.html',
+      templateUrl: 'views/clientes/EliminarClientes.html',
       controller:'CtrolClientes',
       params:{'parametro':'parametro'} 
     })
     .state('AltaEmpleado', {
       url: '/AltaEmpleado',
-      templateUrl: 'views/AltaEmpleado.html',
+      templateUrl: 'views/empleado/AltaEmpleado.html',
       controller:'CtrolEmpleados' 
     })
       .state('ModifEmp', {
       url: '/ModifEmp',
-      templateUrl: 'views/ModifEmp.html',
+      templateUrl: 'views/empleado/ModifEmp.html',
       controller:'CtrolEmpleados',
       params:{'parametro':'parametro'} 
     })
     .state('EliminarEmp', {
       url: '/EliminarEmp',
-      templateUrl: 'views/EliminarEmp.html',
+      templateUrl: 'views/empleado/EliminarEmp.html',
       controller:'CtrolEmpleados',
       params:{'parametro':'parametro'} 
     })   
      .state('AltaProd', {
       url: '/AltaProd',
-      templateUrl: 'views/AltaProd.html',
+      templateUrl: 'views/productos/AltaProd.html',
       controller:'CtrolProductos'
     })   
       .state('ModifP', {
       url: '/ModifP',
-      templateUrl: 'views/ModifP.html',
+      templateUrl: 'views/productos/ModifP.html',
       controller:'CtrolProductos',
       params:{'parametro':'parametro'} 
     })
       .state('EliminarP', {
       url: '/EliminarP',
-      templateUrl: 'views/EliminarP.html',
+      templateUrl: 'views/productos/EliminarP.html',
       controller:'CtrolProductos',
       params:{'parametro':'parametro'} 
     })
       .state('ModifUs', {
       url: '/ModifUs',
-      templateUrl: 'views/ModifUs.html',
+      templateUrl: 'views/Usuarios/ModifUs.html',
       controller:'CtrolUsuario',
       params:{'parametro':'parametro'} 
     })
      .state('EliminarUs', {
       url: '/EliminarUs',
-      templateUrl: 'views/EliminarUs.html',
+      templateUrl: 'views/Usuarios/EliminarUs.html',
       controller:'CtrolUsuario',
       params:{'parametro':'parametro'} 
     })
     .state('AltaUs', {
       url: '/AltaUs',
-      templateUrl: 'views/AltaUs.html',
+      templateUrl: 'views/Usuarios/AltaUs.html',
       controller:'CtrolUsuario'
     })   
     .state('encargados', {
       url: '/encargados',
-      templateUrl: 'views/encargados.html',
+      templateUrl: 'views/encargados/encargados.html',
       controller:'CtrolEncargados',
       params:{'parametro':'parametro'} 
     })
      .state('AltaEncargado', {
       url: '/AltaEncargado',
-      templateUrl: 'views/AltaEncargado.html',
+      templateUrl: 'views/encargados/AltaEncargado.html',
       controller:'CtrolEncargados' 
     })
       .state('EliminarEnc', {
       url: '/EliminarEnc',
-      templateUrl: 'views/EliminarEnc.html',
+      templateUrl: 'views/encargados/EliminarEnc.html',
       controller:'CtrolEncargados',
       params:{'parametro':'parametro'} 
     })
       .state('ModificarEnc', {
       url: '/ModificarEnc',
-      templateUrl: 'views/ModificarEnc.html',
+      templateUrl: 'views/encargados/ModificarEnc.html',
       controller:'CtrolEncargados',
       params:{'parametro':'parametro'} 
     })
      .state('ofertas', {
       url: '/ofertas',
-      templateUrl: 'views/ofertas.html',
+      templateUrl: 'views/ofertas/ofertas.html',
       controller:'CtrolOfertas'
     })  
      .state('Registrarse', {
       url: '/Registrarse',
-      templateUrl: 'views/Registrarse.html',
+      templateUrl: 'views/clientes/Registrarse.html',
       controller:'CtrolClientes'
     })
     .state('pedidos', {
       url: '/pedidos',
-      templateUrl: 'views/pedidos.html',
+      templateUrl: 'views/pedidos/pedidos.html',
       controller:'CtrolPedidos'
     })
     .state('MisPedidos', {
       url: '/MisPedidos',
-      templateUrl: 'views/MisPedidos.html',
+      templateUrl: 'views/pedidos/MisPedidos.html',
       controller:'CtrolPedidos'
     })
     .state('Principal', {
       url: '/Principal',
-      templateUrl: 'views/sucursales.html',
+      templateUrl: 'views/principal.html',
       controller:'CtrolSucursales'
     })
      .state('AltaOferta', {
       url: '/AltaOferta',
-      templateUrl: 'views/AltaOferta.html',
+      templateUrl: 'views/ofertas/AltaOferta.html',
       controller:'CtrolOfertas'
     })
     .state('ModifOf', {
       url: '/ModifOf',
-      templateUrl: 'views/ModifOferta.html',
+      templateUrl: 'views/ofertas/ModifOferta.html',
       controller:'CtrolOfertas',
        params:{'parametro':'parametro'} 
     })
         .state('EliminarOf', {
       url: '/EliminarOf',
-      templateUrl: 'views/EliminarOferta.html',
+      templateUrl: 'views/ofertas/EliminarOferta.html',
       controller:'CtrolOfertas',
        params:{'parametro':'parametro'} 
     })
-
-      
-    
+    .state('sucursales', {
+      url: '/sucursales',
+      templateUrl: 'views/sucursales/sucursales.html',
+      controller:'CtrolSucursales'
+    })
+    .state('ModifSuc', {
+      url: '/ModifSuc',
+      templateUrl: 'views/sucursales/ModifSuc.html',
+      controller:'CtrolSucursales',
+       params:{'parametro':'parametro'} 
+    })      
+    .state('AltaSuc', {
+      url: '/AltaSuc',
+      templateUrl: 'views/sucursales/AltaSuc.html',
+      controller:'CtrolSucursales' 
+    })     
   });
 
 
