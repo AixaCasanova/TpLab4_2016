@@ -85,6 +85,16 @@ class ofertas
 		return $arrVotos;
 	}
 	
+	public static function TraerofertasDeSucursal($param)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select o.id_oferta, o.descripcion, o.precio, s.nombre as sucursal from ofertas as o, sucursal as s where s.id_sucursal = o.id_local and o.id_local=:id_local");
+		$consulta->bindValue(':id_local',$param, PDO::PARAM_INT);		
+		$consulta->execute();			
+		$arrVotos= $consulta->fetchAll(PDO::FETCH_CLASS, "ofertas");	
+		return $arrVotos;
+	}
+	
 	public static function Borraroferta($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -99,6 +109,7 @@ class ofertas
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				update ofertas 
+				set
 				precio=:precio,	
 				descripcion=:descripcion,
 				id_local=:id_local
@@ -120,9 +131,8 @@ class ofertas
 	public static function Insertaroferta($ofertas)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into ofertas (id_oferta,precio,descripcion,id_local)values(:id_oferta,:precio,:descripcion,:id_local)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into ofertas (precio,descripcion,id_local)values(:precio,:descripcion,:id_local)");
 		$consulta->bindValue(':precio', $ofertas->precio, PDO::PARAM_STR);
-		$consulta->bindValue(':id_oferta', $ofertas->id_oferta, PDO::PARAM_STR);
 		$consulta->bindValue(':descripcion', $ofertas->descripcion, PDO::PARAM_STR);
 		$consulta->bindValue(':id_local', $ofertas->id_local, PDO::PARAM_STR);
 		

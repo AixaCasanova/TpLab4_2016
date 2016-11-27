@@ -11,6 +11,36 @@ angular
             i18nService.setCurrentLang('es');
             $scope.gridOptionsOfertas.columnDefs = columnDefs2s();
 
+  //----------------------
+    
+   ServOferta.TraerListaSuc().then(function(resp){
+
+            $scope.Lsucursales=resp;   
+
+            var lst=[];
+    
+        resp.forEach(function(suc){
+
+          if (suc.nombre!="NoAplica") {
+             
+       
+            lst.push(suc);
+            
+          }
+ 
+        })
+         $scope.Lsucursales=lst;
+
+   });
+
+
+      ServOferta.TraerTodos().then(function(resp){
+       $scope.gridOptionsOfertas.data=resp;
+      
+  
+     });
+ 
+
     //-------------------
 
  
@@ -24,7 +54,7 @@ angular
 
           if (datos['perfil'] == "administrador") 
           {
-              console.info("datos.perfil: ",datos['perfil'])
+            //  console.info("datos.perfil: ",datos['perfil'])
               $rootScope.esEnc=true;
               $rootScope.esAdmin=true;
               $rootScope.esVend=true;
@@ -56,44 +86,73 @@ angular
  //----------------------
  
     $scope.of={};
-    console.info("parametros",$stateParams);  
+    //console.info("parametros",$stateParams);  
      if ($stateParams['parametro'] != null ) 
       {
         var ObjRecibido=$stateParams['parametro'];
         console.info(ObjRecibido);
-        $scope.of.id_producto=ObjRecibido.id_producto;
+
+        $scope.of.id_oferta=ObjRecibido.id_oferta;
         $scope.of.descripcion=ObjRecibido.descripcion;
         $scope.of.precio=ObjRecibido.precio;
         $scope.SucElegida=ObjRecibido.sucursal;
+
       }
       else{
         $scope.of.descripcion="Desc1";
         $scope.of.precio=10;
+        $scope.SucElegida="SucA";
       }
  
 
- //----------------------
-    
-   ServOferta.TraerListaSuc().then(function(resp){
-
-            $scope.Lsucursales=resp;   
-            console.info("sucur",resp); 
-            $scope.Lsucursales=resp;
-      
-         });
-
-
-      ServOferta.TraerTodos().then(function(resp){
-       $scope.gridOptionsOfertas.data=resp;
-      
-  
-     });
  
 
-       $scope.Volver=function()
-            {
-              $state.go("ofertas");
-            }
+      $scope.AltaO=function()
+      {
+        $scope.of.sucursal=$scope.SucElegida;
+        ServOferta.AltaO(JSON.stringify($scope.of)).then(function(resp){
+
+             console.info(resp);
+             $state.go("ofertas");
+      
+         });       
+
+
+      }
+
+     $scope.ModifO=function()
+      {
+         $scope.of.sucursal=$scope.SucElegida;
+         console.info($scope.of);
+        ServOferta.ModifO(JSON.stringify($scope.of)).then(function(resp){
+
+             console.info(resp);
+             $state.go("ofertas");
+      
+         });       
+
+
+      }
+      
+     $scope.ElimO=function()
+      {
+         $scope.of.sucursal=$scope.SucElegida;
+         console.info($scope.of);
+        ServOferta.ElimO(JSON.stringify($scope.of)).then(function(resp){
+
+             console.info(resp);
+             $state.go("ofertas");
+      
+         });       
+
+
+      }
+
+
+        $scope.Volver=function()
+        {
+            $state.go("ofertas");
+        }
 
     
 

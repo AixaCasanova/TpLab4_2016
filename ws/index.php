@@ -167,7 +167,49 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
 
     
 });
+
+ $app->post('/AltaOfertas/{objeto}', function ($request, $response, $args) {
+ 
+    $of=json_decode($args['objeto']);
+    $UnaOferta = new ofertas();
+    $UnaOferta->descripcion = $of->descripcion;
+    $UnaOferta->precio = $of->precio;
+    $dato=sucursal::TraerUnasucursal($of->sucursal);
+    $UnaOferta->id_local=$dato->id_sucursal;
+    $resp=ofertas::Insertaroferta($UnaOferta);
+ 
+    return json_encode($UnaOferta);
     
+});
+
+ $app->post('/ModifOfertas/{objeto}', function ($request, $response, $args) {
+ 
+    $of=json_decode($args['objeto']);
+      
+    $UnaOferta = new ofertas();
+    $UnaOferta->id_oferta=$of->id_oferta;
+    $UnaOferta->descripcion = $of->descripcion;
+    $UnaOferta->precio = $of->precio;
+    $dato=sucursal::TraerUnasucursal($of->sucursal);
+    $UnaOferta->id_local=$dato->id_sucursal;
+    $resp=ofertas::Modificaroferta($UnaOferta);
+ 
+    return json_encode($resp);
+     
+    //return json_encode($UnaOferta);
+    
+});
+
+
+ $app->post('/ElimOfertas/{objeto}', function ($request, $response, $args) {
+ 
+    $of=json_decode($args['objeto']); 
+    $resp=ofertas::Borraroferta($of->id_oferta);
+
+    return json_encode($resp);
+     
+    
+});
  $app->post('/AltaPed/{objeto}', function ($request, $response, $args) {
  
 

@@ -87,6 +87,18 @@ class sucursal
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select id_sucursal from sucursal where nombre =:nombre");
+		$consulta->bindValue(':nombre', $Parametro, PDO::PARAM_INT);
+		$consulta->execute();
+		$VotoBuscado= $consulta->fetchObject('sucursal');
+		return $VotoBuscado;	
+					
+	}
+	public static function TraerUnasucursalPorNombre($Parametro) 
+	{	
+
+
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta =$objetoAccesoDato->RetornarConsulta("select * from sucursal where id_sucursal =:id_sucursal");
 		$consulta->bindValue(':id_sucursal', $Parametro, PDO::PARAM_INT);
 		$consulta->execute();
