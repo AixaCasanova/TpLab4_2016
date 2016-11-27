@@ -62,10 +62,14 @@ $app->get('/sucursalesUp[/{objeto}]', function ($request, $response, $args) {
         //$sucursal->fotos=json_encode($arrayFoto); 
 
     }
-        //  return $response->write(Local::InsertarLocal($local)); 
-  //-----------------
-  
    
+});
+
+$app->get('/OfertasDeSucursal[/{objeto}]', function ($request, $response, $args) {
+  
+    $sucursal=json_decode($args['objeto']);
+    $res=ofertas::TraerofertasDeSucursal($sucursal);
+    return json_encode($res);  
 });
 
  

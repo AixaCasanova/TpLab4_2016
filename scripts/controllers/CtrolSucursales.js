@@ -3,6 +3,8 @@ angular
   .controller('CtrolSucursales', function($scope,$rootScope, $auth,  data, $auth,FileUploader,$stateParams,$state, ServSucursales, i18nService, uiGridConstants)
    {
     $scope.sucursal={};
+    $scope.gridOptionsOfr = {};
+    $scope.verOfer=false;
  //-------------------
 
  
@@ -52,6 +54,10 @@ angular
   $scope.gridOptionsSucurs.paginationPageSize = 25;
   $scope.gridOptionsSucurs.columnDefs=columnDefsSucursal();
 
+  $scope.gridOptionsSucursNoAdm = {};
+  $scope.gridOptionsSucursNoAdm.paginationPageSizes = [25, 50, 75];
+  $scope.gridOptionsSucursNoAdm.paginationPageSize = 25;
+  $scope.gridOptionsSucursNoAdm.columnDefs=columnDefsSucursal2();
  
  //----------------------
 
@@ -145,6 +151,7 @@ angular
         $scope.List=lst;
         
        $scope.gridOptionsSucurs.data=$scope.List;
+       $scope.gridOptionsSucursNoAdm.data=$scope.List;
   		
    
        }) ;
@@ -152,11 +159,17 @@ angular
   $scope.VerOfertas = function(parametro)
   {
     console.info(parametro['id_sucursal']);
-      ServSucursales.TraerMisOfertas(parametro['id_sucursal']) //+ JSON.stringify($scope.persona))
+    var id_suc=parametro['id_sucursal'];
+      ServSucursales.TraerMisOfertas(id_suc) //+ JSON.stringify($scope.persona))
         .then(function(respuesta)
          {       
   
-            console.info(respuesta);    
+            console.info(respuesta); 
+            $scope.verOfer=true;
+            $scope.gridOptionsOfr.paginationPageSizes = [25, 50, 75];
+            $scope.gridOptionsOfr.paginationPageSize = 25;
+            $scope.gridOptionsOfr.columnDefs=columnDefsOfr();
+            $scope.gridOptionsOfr.data=respuesta;
           },function errorCallback(response) 
           {        
             //aca se ejecuta cuando hay errores
@@ -181,6 +194,25 @@ angular
         $state.go("EliminarSuc",{parametro:parametro});
       }
 
+   function columnDefsOfr() {
+      return [
+         { field: 'id_oferta', name: 'id_oferta', width: 120
+          ,enableFiltering: false
+        },
+         { field: 'descripcion', name: 'descripcion', width: 120
+          ,enableFiltering: false
+        },
+         { field: 'precio', name: 'precio', width: 120
+          ,enableFiltering: false
+        },
+         { field: 'sucursal', name: 'sucursal', width: 120
+         ,enableFiltering: true
+
+        }
+
+      ];
+    };
+ 
 
    function columnDefsSucursal () {
       return [
@@ -209,6 +241,33 @@ angular
         { field: 'Modificar', name: 'Modificar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Modificar" class="btn btn-warning" ng-click="grid.appScope.IrModificar(row.entity)">'},
         { field: 'Eliminar', name: 'Eliminar', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Eliminar" class="btn btn-danger" ng-click="grid.appScope.IrEliminar(row.entity)">'},
           
+
+      ];
+    }; 
+
+
+function columnDefsSucursal2 () {
+      return [
+         { field: 'direccion', name: 'direccion', width: 120
+          ,enableFiltering: false
+        },
+         { field: 'nombre', name: 'nombre', width: 120
+          ,enableFiltering: false
+        },
+        { field: 'foto1',  name: 'foto1', cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\">",width: 120
+          ,type: 'text'
+          ,enableFiltering: false
+        },
+        { field: 'foto2',  name: 'foto2', cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\">",width: 120
+          ,type: 'text'
+          ,enableFiltering: false
+        },
+         { field: 'foto3',  name: 'foto3', cellTemplate:"<img width=\"50px\" ng-src=\"{{grid.getCellValue(row, col)}}\">",width: 120
+          ,type: 'text'
+          ,enableFiltering: false
+        },      
+        { field: 'Ofertas', name: 'Ofertas', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="Ver ofertas" class="btn btn-default" ng-click="grid.appScope.VerOfertas(row.entity)">'},  
+       
 
       ];
     }; 

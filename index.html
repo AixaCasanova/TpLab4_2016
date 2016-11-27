@@ -35,6 +35,8 @@
     <script src="bower_components/satellizer/dist/satellizer.min.js"></script>
     <script src="scripts/app.js"></script>
    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    
+  
    <!--  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
     <style type="text/css">
         body {
@@ -80,7 +82,7 @@
                     <li><a ui-sref="Principal">Inicio</a></li> 
                     <li><a ui-sref="login">login</a></li> 
                     <li><a ng-if="esAdmin && SeVe" ui-sref="usuarios">usuarios</a></li>
-                    <li><a ng-if="esAdmin && SeVe" ui-sref="sucursales">sucursales</a></li>
+                    <li><a ng-if="SeVe" ui-sref="sucursales">sucursales</a></li>
                     <li><a  ng-if="(esEnc && !esAdmin) && SeVe" ui-sref="empleados">empleados</a></li>
                     <li><a ng-if="(esVend && !esAdmin) && SeVe" ui-sref="clientes">clientes</a></li>
                     <li><a  ng-if="esAdmin  && SeVe" ui-sref="encargados">encargados</a></li> 
