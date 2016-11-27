@@ -116,6 +116,21 @@ $app->post('/login/{objeto}', function ($request, $response, $args) {
    echo json_encode($dato);
 });
 
+$app->post('/GuardarLogin/{objeto}', function ($request, $response, $args) {
+    
+    $pers=json_decode($args['objeto']);
+    date_default_timezone_set('America/Argentina/Buenos_Aires');  
+ 
+    $mail=$pers->mail;
+    $nombre=$pers->nombre;
+    $tipo=$pers->tipo;
+    $fecha=date("Y-m-d H:i:s",time());
+    $resp=usuario::GuardarLogin($mail,$nombre,$tipo,$fecha);
+    echo json_encode($resp);
+
+});
+
+
 $app->get('/empleados[/]', function ($request, $response, $args) {
  
     $dato=usuario::TraerTodosLosempleados();

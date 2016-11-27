@@ -199,7 +199,13 @@ angular
       url: '/AltaSuc',
       templateUrl: 'views/sucursales/AltaSuc.html',
       controller:'CtrolSucursales' 
-    })     
+    })   
+    .state('estadisticas', {
+      url: '/estadisticas',
+      templateUrl: 'views/Estadisticas.html',
+      controller:'CtrolEstadisticas' 
+    }) 
+
   });
 
 

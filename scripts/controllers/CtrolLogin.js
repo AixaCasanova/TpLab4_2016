@@ -16,7 +16,7 @@ angular
 
           if (datos['perfil'] == "administrador") 
           {
-              console.info("datos.perfil: ",datos['perfil'])
+            
               $rootScope.esEnc=true;
               $rootScope.esAdmin=true;
               $rootScope.esVend=true;
@@ -58,35 +58,11 @@ angular
       $scope.ver=true;
  
       if ($auth.isAuthenticated()) {
-        console.info("token",$auth.getPayload());
+      
         $scope.ver=false;
       }else{$scope.ver=true;}
       
-    //  if ($auth.isAuthenticated()) {
-       
-    //     $scope.datos=$auth.getPayload();
-    //     $scope.usuarioAver="Bienvenido "+ $scope.datos.nombre;  
-    //     $scope.ver=false;
-    //     $rootScope.userAVer="Bienvenido "+$scope.datos.nombre;
-    //     if ($scope.datos.perfil == "administrador") {
-    //       console.info("si pasa por aca en el inicio!");  
-    //       $rootScope.esAdmin=true;
-    //       $rootScope.esVend=true;
-    //     }else if ($scope.datos.perfil == "comprador") {
-    //       $rootScope.esAdmin=false;
-    //       $rootScope.esVend=false;
-    //     }else if ($scope.datos.perfil == "vendedor") {
-    //       $rootScope.esAdmin=false;         
-    //       $rootScope.esVend=true;
-    //     } 
-       
-    // }else{
-    //   console.info("llega al ctrol gral?3")
-    //   console.info("notoken",$auth.getPayload());
-    //     $rootScope.SeVe=false;
-    //     $rootScope.usuarioAver="";
-    //     $scope.ver=true;
-    // }
+
 
        $scope.authenticate = function(provider)
        {
@@ -108,9 +84,7 @@ angular
                 $scope.users=resp;
                 
                 $scope.users.forEach(function(resp){
-                  // console.info(resp['mail']);
-                  // console.info(resp['nombre']);
-                  // console.info(resp['tipo']);
+ 
                   
                  if (resp['tipo']==TipoTest && HD==resp['estado']) 
                  {
@@ -156,7 +130,7 @@ angular
                     {
              
                       if ($auth.isAuthenticated()) {
-                        console.info("token",$auth.getPayload());
+      
                         $scope.ver=false;
                         $scope.datos=$auth.getPayload();
                         $rootScope.userAVer="Bienvenido "+$scope.datos.nombre;
@@ -170,6 +144,16 @@ angular
                           $rootScope.esAdmin=false;         
                           $rootScope.esVend=true;
                          }               
+
+                         //-------------
+
+                          Servlogin.GuardarLogin(JSON.stringify($scope.usuario)).then(
+                          function(respuesta)
+                          {
+                            console.info(respuesta);
+                          })
+                         //-------------
+
 
                          $state.reload()
                       }else{

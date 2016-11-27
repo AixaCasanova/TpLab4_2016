@@ -6,6 +6,7 @@ angular
     objeto.nombre = "Servlogin";
     objeto.TraerUnLogin = TraerUnLogin;
     objeto.TraerTodos=TraerTodos;
+    objeto.GuardarLogin=GuardarLogin;
     return objeto;
 
  
@@ -21,7 +22,11 @@ angular
 
     };
 
- 
+     function GuardarLogin(pers)
+    {
+       
+      return ServloginBase.GuardarLogin(pers);
+    };
 
 
   })//Cierra factory

@@ -159,6 +159,22 @@ class usuario
 		$arrusuario= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario");	
 		return $arrusuario;
 	}
+
+ 
+	public static function GuardarLogin($mail,$nombre,$tipo,$fechaHS)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into det_logins (mail,nombre,tipo,fechaHS)values(:mail,:nombre,:tipo,:fechaHS)");
+			//$consulta->bindValue(':id_user',$usuario->id_user, PDO::PARAM_INT);
+			$consulta->bindValue(':mail', $mail, PDO::PARAM_STR);
+			$consulta->bindValue(':nombre',$nombre, PDO::PARAM_STR);
+			$consulta->bindValue(':tipo', $tipo, PDO::PARAM_STR);
+			$consulta->bindValue(':fechaHS', $fechaHS, PDO::PARAM_STR);
+			
+		$consulta->execute();		
+		return $objetoAccesoDato->RetornarUltimoIdInsertado();
+	}
+				
 	
 	public static function Borrarusuario($mail,$id_user,$tipo)
 	{	

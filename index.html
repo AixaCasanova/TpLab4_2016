@@ -34,16 +34,10 @@
     <script src="bower_components/satellizer/dist/satellizer.js"></script>
     <script src="bower_components/satellizer/dist/satellizer.min.js"></script>
     <script src="scripts/app.js"></script>
-   <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
-    
-  
-   <!--  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-    <style type="text/css">
-        body {
-            font-family: 'Indie Flower', cursive;
-        }
-    </style>
- -->
+    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="bower_components/chart.js/dist/Chart.min.js"></script>
+ 
+
  
 <link href="https://fonts.googleapis.com/css?family=Patrick+Hand" rel="stylesheet">
    <style type="text/css">
@@ -86,7 +80,7 @@
                     <li><a  ng-if="(esEnc && !esAdmin) && SeVe" ui-sref="empleados">empleados</a></li>
                     <li><a ng-if="(esVend && !esAdmin) && SeVe" ui-sref="clientes">clientes</a></li>
                     <li><a  ng-if="esAdmin  && SeVe" ui-sref="encargados">encargados</a></li> 
-                    
+                    <li><a  ng-if="esAdmin  && SeVe" ui-sref="estadisticas">estadisticas</a></li> 
                     <li><a ng-if="SeVe" ui-sref="productos">productos</a></li> 
                     <li><a ng-if="SeVe" ui-sref="ofertas">ofertas</a></li>
                     <li><a ng-if="SeVe" ui-sref="MisPedidos">pedidos</a></li>
@@ -132,6 +126,8 @@
     <script src="scripts/controllers/CtrolPedidos.js"></script>
     <script src="scripts/controllers/CtrolSucursales.js"></script>
     <script src="scripts/controllers/CtrolSucursales.js"></script>
+    <script src="scripts/controllers/CtrolEstadisticas.js"></script>
+    
 
     <!-- services -->
     <script src="scripts/services/data.js"></script> 

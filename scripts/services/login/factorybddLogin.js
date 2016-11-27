@@ -6,6 +6,7 @@ angular
 
     objeto.Api ="http://localhost:8026/TpLab4_2016/ws/login";
     objeto.Api2 ="http://localhost:8026/TpLab4_2016/ws/usuarios";
+    objeto.Api3 ="http://localhost:8026/TpLab4_2016/ws/GuardarLogin";
     return objeto;
 
 
