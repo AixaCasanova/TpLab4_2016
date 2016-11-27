@@ -43,14 +43,27 @@ $app->get('/productos[/]', function ($request, $response, $args) {
     return $response;
 });
 
+ 
+
 $app->get('/pedidos[/{objeto}]', function ($request, $response, $args) {
-  
-  $pers=$args['objeto'];
+
+     if ($args!=null) {
+        $pers=$args['objeto'];
+        $idUser=(int)$pers;
+        $resp=pedidos::TraerMisPedidos($idUser);
+        return json_encode($resp);
+        //return "vino el id";
+     }else{
+         $dato=pedidos::TraerTodosLosPedidos();
+         $response->write(json_encode($dato));
+
+         return $response;
+        //return "no vino el id";
+    }
+ 
   
    
-  $idUser=(int)$pers;
-  $resp=pedidos::TraerMisPedidos($idUser);
-  return json_encode($resp);
+
   
 });
 $app->get('/pedidosDT[/{objeto}]', function ($request, $response, $args) {
@@ -132,15 +145,16 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
     
  $app->post('/AltaPed/{objeto}', function ($request, $response, $args) {
  
+
     $prod=json_decode($args['objeto']);
-    
+   
+    date_default_timezone_set('America/Argentina/Buenos_Aires');    
     $UnPedido = new pedidos();
     $UnPedido->lista_productos = $prod->lista_productos;
     $UnPedido->total_pedido = $prod->total_pedido;
     $UnPedido->id_user=$prod->id_user;
-    $UnPedido->fecha=$prod->fecha;
+    $UnPedido->fecha=date("Y-m-d H:i:s",time());
     $UnPedido->sucursal=$prod->sucursal;
-    $UnPedido->empleado=$prod->empleado;
     $dato=pedidos::InsertarPedidos($UnPedido);  
     $response->write(json_encode($dato));
 
@@ -152,8 +166,8 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
         $cantidad=$p->cant;
         $res=pedidos::InsertarDetPed($idpr,$idp->id_pedidos,$cantidad);
       }    
-      return $response;      
-    
+      //return $response;      
+    return json_encode($UnPedido->fecha);
 });
 
 $app->post('/ModifUs/{objeto}', function ($request, $response, $args) {

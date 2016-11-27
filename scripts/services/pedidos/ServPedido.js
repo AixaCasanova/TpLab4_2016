@@ -22,6 +22,7 @@ angular
 
     function TraerTodos(id){
    
+      console.info(id);
       return ServPedidoBase.TraerTodos(id);
 
     };

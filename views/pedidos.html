@@ -2,14 +2,15 @@
 	<h3>Pedido</h3>
 	<div ng-if="ver==true">
 		Sucursal:
-		 <select ng-model="SucElegida">
-		 <option ng-repeat="s in Lsucursales" value={{s.nombre}}>{{s.nombre}}</option>
-		</select><br><br>  
+		 <select ng-model="SucEleg">
+		  <option ng-repeat="s in Lsucursales" value={{s.nombre}}>{{s.nombre}}</option>
+		</select><br><br>
+ 
 	   	<div ui-grid="gridOptionsPedidos" class="myGrid"></div><br><br>
 	   	<center><h3>Productos elegidos</h3></center><br> 
 	   	<div ui-grid="gridOptionsMisProdSel" class="myGrid"></div><br><br>
 	   	
-	   	<input type="button" class="btn btn-default" name="pedir" value="Pedir" ng-click="pedir()">
+	   	<input type="button" class="btn btn-default" name="pedir" value="Pedir" ng-click="pedir(SucEleg)">
 	   	<input type="button" class="btn btn-default" name="volver" ng-click=Volver() value="Volver">
    	</div>
    	<div ng-if="ver!=true" id="divlogin"><center><h1>Se debe loguear!!</h1></center></div>

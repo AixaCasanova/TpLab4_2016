@@ -2,11 +2,12 @@ angular
   .module('app')
   .controller('CtrolPedidos', function($scope,$rootScope, data,$auth, $auth,$stateParams,$state, ServPedido, i18nService, uiGridConstants)
    {
-
+ 
     var index = -1;
      var ListPr = [];
      var ListDetalle = [];
      var total=0;
+
      $scope.veoGrilla=false;
 
      $scope.gridOptionsPedidos = {};
@@ -17,11 +18,20 @@ angular
       $scope.gridOptionsMisPedidos.paginationPageSizes = [25, 50, 75];
       $scope.gridOptionsMisPedidos.paginationPageSize = 25;
       $scope.gridOptionsMisPedidos.columnDefs=columnDefs();
+
+      $scope.gridOptionsTodosPedidos = {};
+      $scope.gridOptionsTodosPedidos.paginationPageSizes = [25, 50, 75];
+      $scope.gridOptionsTodosPedidos.paginationPageSize = 25;
+      $scope.gridOptionsTodosPedidos.columnDefs=columnDefsTodos();
       
       
      $scope.gridOptionsMisProdPedidos = {};
      $scope.gridOptionsMisProdPedidos.paginationPageSizes = [25, 50, 75];
      $scope.gridOptionsMisProdPedidos.paginationPageSize = 25;
+
+     $scope.gridOptionsMisProdPedidos2 = {};
+     $scope.gridOptionsMisProdPedidos2.paginationPageSizes = [25, 50, 75];
+     $scope.gridOptionsMisProdPedidos2.paginationPageSize = 25;
 
      $scope.gridOptionsMisProdSel = {};
      $scope.gridOptionsMisProdSel.paginationPageSizes = [25, 50, 75];
@@ -50,7 +60,7 @@ angular
 
            if (datos['perfil'] == "administrador") 
           {
-              console.info("datos.perfil: ",datos['perfil'])
+              
               $rootScope.esEnc=true;
               $rootScope.esAdmin=true;
               $rootScope.esVend=true;
@@ -72,32 +82,46 @@ angular
           }else
           {
             $scope.ver=false;
-            console.info("llega al ctrol gral?3")
-            console.info("notoken",$auth.getPayload());
+            
             $rootScope.SeVe=false;
             $rootScope.usuarioAver="";
           }
 
  
           var ObjeJson={};
-           var iduser =  datos['id_user'];
-           console.info("id_user::",iduser);
+           var iduser= datos['id_user'];
+          
            var Info1={};
            var Info2={};
            
+           console.info(iduser);
 
             ServPedido.TraerTodos(iduser).then(function(resp)
             {
-              console.info("resp1 a correg:",resp);
 
-
-              if ($stateParams[0] == null) {
-                $scope.gridOptionsMisPedidos.data=resp;
-              }
+              console.info(resp);
+              $scope.gridOptionsMisPedidos.data=resp;
+              
 
              });
 
-        }
+              if (datos['perfil'] != "comprador") {
+                ServPedido.TraerTodos().then(function(resp)
+                {
+                  console.info(resp);
+                  $scope.gridOptionsTodosPedidos.data=resp;
+                }); 
+              }
+               
+            }
+
+        
+
+        
+      
+
+
+
 
 
          ServPedido.TraerListaSuc().then(function(resp){
@@ -107,8 +131,9 @@ angular
                   lstS.push(r);
                 }
               })
-            $scope.Lsucursales=lstS;    
-            $scope.SucElegida=lstS[0].nombre;
+            $scope.Lsucursales=lstS;  
+            $scope.SucEleg=$scope.Lsucursales[0].nombre;
+          
          });
 
 
@@ -173,39 +198,31 @@ angular
         }
       
 
-        $scope.pedir=function()
+        $scope.pedir=function(suc)
         {
 
-
+          console.info(suc);
           var vend="";
           var Ids=[];
           var detp=[];
           var suma=0;
           var time = Date.now();
-           console.info("lst",ListPr);
-           if (datos['perfil'] == "comprador") {
-            vend="autogest";
-          }else{
-            vend=datos["id_user"];
-          }
+        
+        
+            per=datos["id_user"];
+      
            ListPr.forEach(function(p)
            {
             
              total=p['cant']*p['precio'];
-             console.info("tot",total);
+            
              suma=suma+total;        
-             console.info("suma",suma);
-             //detp.total=total;
-             //detp.cant=p['cant'];
-             //detp.idp=p['id_producto'];
-
-
-
-           // detp = {"total":total,"cant":p['cant'],"idp":p['id_producto']}
+            
+          
             detp = {"total":total,"cant":p['cant'],"idp":p['id_producto']}
 
 
-             console.info('detp',detp);  
+            
              Ids.push(detp);
              detp =[];
              
@@ -220,9 +237,9 @@ angular
            $scope.pedido.total_pedido=suma;
            $scope.pedido.lista_productos=ListDetalle;
            $scope.pedido.id_user=$scope.datos.id_user;
-           $scope.pedido.empleado=vend;
-           $scope.pedido.fecha=time;
-           $scope.pedido.sucursal=$scope.SucElegida;
+          
+           $scope.pedido.sucursal=suc;
+        
          
             console.info("p a enviar",$scope.pedido);
             ServPedido.AltaP(JSON.stringify($scope.pedido)).then(function(resp)
@@ -243,9 +260,9 @@ angular
         
  
 
-         $scope.verpp=function(param)
+         $scope.verpp=function(param, param2)
          {
-
+          if (param2==1) {
            console.info("param",param);
           
            $scope.gridOptionsProd={};
@@ -260,6 +277,22 @@ angular
               $scope.gridOptionsMisProdPedidos.data=resp2;
 
             });
+          }else{
+                console.info("param",param);
+          
+           $scope.gridOptionsProd={};
+           $scope.veoGrilla2=true;
+           $scope.gridOptionsMisProdPedidos2.paginationPageSizes = [25, 50, 75];
+           $scope.gridOptionsMisProdPedidos2.paginationPageSize = 25;
+           $scope.gridOptionsMisProdPedidos2.columnDefs = columnDefsCom2();
+        
+            ServPedido.TraerTodosD(param['id_pedidos']).then(function(resp2)
+            {
+              console.info("resp2:",resp2);
+              $scope.gridOptionsMisProdPedidos2.data=resp2;
+
+            });
+          }
          }
 
         $scope.Volver=function()
@@ -278,12 +311,33 @@ angular
           { field: 'id_pedidos', name: 'id_pedidos', width: 120
           ,enableFiltering: false
           },
-          { field: 'productos', name: 'productos', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="productos pedidos" class="btn btn-default" ng-click="grid.appScope.verpp(row.entity)">'}
+          { field: 'productos', name: 'productos', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="productos pedidos" class="btn btn-default" ng-click="grid.appScope.verpp(row.entity,1)">'}
           ,{ field: 'fecha', name: 'fecha', width: 120 ,enableFiltering: false
           }
           ,{ field: 'sucursal', name: 'sucursal', width: 120 ,enableFiltering: false
           }
-          ,{ field: 'empleadoNom', name: 'empleadoNom', width: 120 ,enableFiltering: false
+          ,{ field: 'nombre', name: 'nombre', width: 120 ,enableFiltering: false
+          } 
+          ,{ field: 'total_pedido', name: 'total_pedido', width: 120
+          ,enableFiltering: false
+          }
+
+          ]
+        };
+
+        function columnDefsTodos () {
+      return [
+          { field: 'id_pedidos', name: 'id_pedidos', width: 120
+          ,enableFiltering: false
+          },
+          { field: 'productos', name: 'productos', enableFiltering: false , width: 120, cellTemplate:'<input type="button"  value="productos pedidos" class="btn btn-default" ng-click="grid.appScope.verpp(row.entity,2)">'}
+          ,{ field: 'fecha', name: 'fecha', width: 120 ,enableFiltering: false
+          }
+          ,{ field: 'sucursal', name: 'sucursal', width: 120 ,enableFiltering: false
+          }
+          ,{ field: 'nombre', name: 'nombre', width: 120 ,enableFiltering: false
+          } 
+          ,{ field: 'tipo', name: 'tipo', width: 120 ,enableFiltering: false
           }
           ,{ field: 'total_pedido', name: 'total_pedido', width: 120
           ,enableFiltering: false

@@ -14,7 +14,7 @@ class pedidos
  
  	public $sucursal;
 
- 	public $empleado; 
+ 	public $persona; 
 //--------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------------------------//
@@ -69,14 +69,14 @@ public function Getid_fecha()
 	{
 		$this->sucursal = $valor;
 	}
-		public function Getid_empleado()
+		public function Getid_persona()
 	{
-		return $this->empleado;
+		return $this->persona;
 	}
 
-	public function Setid_empleado($valor)
+	public function Setid_persona($valor)
 	{
-		$this->empleado = $valor;
+		$this->persona = $valor;
 	}
 	
 //--------------------------------------------------------------------------------//
@@ -114,7 +114,7 @@ public function Getid_fecha()
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 	
-		$consulta =$objetoAccesoDato->RetornarConsulta("select p.id_pedidos,p.total_pedido, p.id_user, p.fecha, p.sucursal, p.empleado, e.nombre as empleadoNom from pedidos p, usuario as e where p.id_user =:id_usuario and p.empleado=e.id_user");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select p.id_pedidos,p.total_pedido, p.id_user, p.fecha, p.sucursal, u.nombre as nombre from pedidos p, usuario as u where p.id_user=:id_usuario and p.id_user=u.id_user");
 		$consulta->bindValue(':id_usuario', $id, PDO::PARAM_INT);
 		$consulta->execute();			
 		$arrp= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	
@@ -149,7 +149,7 @@ public function Getid_fecha()
 	public static function TraerTodosLosPedidos()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select * from pedidos");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select p.id_pedidos,p.total_pedido, p.id_user, p.fecha, p.sucursal, u.nombre as nombre, u.tipo from pedidos p, usuario as u where p.id_user=u.id_user");
 		$consulta->execute();			
 		$arrVotos= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	
 		return $arrVotos;
@@ -197,14 +197,15 @@ public static function InsertarDetPed($id_pr, $id_ped,$cantidad)
 	}	
 	public static function InsertarPedidos($pedidos)
 	{
+	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos (id_pedidos,total_pedido,id_user,fecha,sucursal,empleado)values(:id_pedidos,:total_pedido,:id_user,:fecha,:sucursal,:empleado)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos (id_pedidos,total_pedido,id_user,fecha,sucursal)values(:id_pedidos,:total_pedido,:id_user,:fecha,:sucursal)");
 		$consulta->bindValue(':total_pedido', $pedidos->total_pedido, PDO::PARAM_STR);
 		$consulta->bindValue(':id_pedidos', $pedidos->id_pedidos, PDO::PARAM_STR);
 		$consulta->bindValue(':id_user', $pedidos->id_user, PDO::PARAM_STR);
 		$consulta->bindValue(':fecha', $pedidos->fecha, PDO::PARAM_STR);
 		$consulta->bindValue(':sucursal', $pedidos->sucursal, PDO::PARAM_STR);
-		$consulta->bindValue(':empleado', $pedidos->empleado, PDO::PARAM_STR);
+		
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
 				

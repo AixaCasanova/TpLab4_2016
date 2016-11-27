@@ -15,6 +15,7 @@ angular
 
     //Esta funcion es privada
    
+   // console.info(TraerUrl(parametro,accion));
 
       function TraerUrl(parametro,accion)
       {
@@ -22,7 +23,7 @@ angular
         if (!parametro)
         {
            
-      
+        
           return url;
         }
         else{
@@ -125,6 +126,9 @@ angular
      
        this.TraerTodos =function(id){
         qhago="todos";
+        
+        console.info(TraerUrl(id,qhago));
+        
         return $http.get(TraerUrl(id,qhago)).then(
           function (respuesta){
     
