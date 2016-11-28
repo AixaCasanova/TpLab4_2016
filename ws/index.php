@@ -253,6 +253,7 @@ $app->post('/AltaClientes/{objeto}', function ($request, $response, $args) {
     $UnPedido->id_user=$prod->id_user;
     $UnPedido->fecha=date("Y-m-d H:i:s",time());
     $UnPedido->sucursal=$prod->sucursal;
+    $UnPedido->FechaEntrega=$prod->FechaEntrega;
     $dato=pedidos::InsertarPedidos($UnPedido);  
     $response->write(json_encode($dato));
 

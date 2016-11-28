@@ -205,6 +205,11 @@ angular
       templateUrl: 'views/Estadisticas.html',
       controller:'CtrolEstadisticas' 
     }) 
+    .state('encuesta', {
+      url: '/encuesta',
+      templateUrl: 'views/encuesta.html',
+      controller:'CtrolEncuesta' 
+    }) 
 
   });
 

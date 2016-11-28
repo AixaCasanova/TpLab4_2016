@@ -21,12 +21,32 @@ angular
      var ListDetalle = [];
      var total=0;
      $scope.veoGrilla=false;
-     //$scope.fechaActual=
+ 
 
-    // $scope.fechasEntrega="26-11-2016";
-     //$scope.fechaActual = new Date();
-     //console.info($scope.fechaActual);
-    
+ 
+     $scope.fechaActual = new Date();
+
+    $scope.fechaActualF = formatDate($scope.fechaActual);
+  
+    console.info($scope.fechamas2d);
+
+function addDays(days)
+{
+    var dat=new Date();
+    dat.setDate(dat.getDate() + days);
+    return formatDate(dat);
+}
+
+$scope.fechamas2d=addDays(2);
+$scope.fechamas5d=addDays(6);
+
+console.info($scope.fechamas2d);
+   $scope.Formatear=function(parametro)
+    {
+      $scope.fechasEntregaF = formatDate(parametro);
+      console.info($scope.fechasEntregaF);
+    }
+     console.info($scope.fechasEntrega);
      $scope.gridOptionsPedidos = {};
       $scope.gridOptionsPedidos.width=10;
      $scope.gridOptionsPedidos.columnDefs = columnDefsCom();
@@ -192,8 +212,18 @@ console.info($scope.DirSucursal);
 }
 
  //-----------------------
+function formatDate(date) 
+{
+  // console.info(date.getDate());
+  //   return Date(date.getFullYear()+ "-" + (date.getMonth()+1) + "-" + date.getDate());
+    return date.toISOString().slice(0, 10);
+  }
+
 
  
+
+ //----------------------
+
        if ($auth.isAuthenticated()) 
        {
        
@@ -265,7 +295,7 @@ console.info($scope.DirSucursal);
         
       
 
-
+$scope.longListaP=0;
 
        
         $scope.agregar=function(parametro)
@@ -277,6 +307,7 @@ console.info($scope.DirSucursal);
           else{
             parametro.cant=1;
             ListPr.push(parametro); 
+            $scope.longListaP=$scope.longListaP +1;
           }
                    
           $scope.gridOptionsMisProdSel.data=ListPr;
@@ -318,6 +349,7 @@ console.info($scope.DirSucursal);
             
                 if (indexAux > -1) {
                     ListPr.splice(indexAux, 1);
+                     $scope.longListaP=$scope.longListaP -1;
                 }
              }
           }
@@ -327,7 +359,7 @@ console.info($scope.DirSucursal);
         }
       
 
-        $scope.pedir=function(suc)
+        $scope.pedir=function(suc,fEntrega)
         {
 
           console.info(suc);
@@ -366,7 +398,8 @@ console.info($scope.DirSucursal);
            $scope.pedido.total_pedido=suma;
            $scope.pedido.lista_productos=ListDetalle;
            $scope.pedido.id_user=$scope.datos.id_user;
-          
+           $scope.pedido.FechaEntrega=fEntrega;
+          console.info(fEntrega);
            $scope.pedido.sucursal=suc;
         
          

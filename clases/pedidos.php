@@ -220,12 +220,13 @@ public static function InsertarDetPed($id_pr, $id_ped,$cantidad)
 	{
 	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos (id_pedidos,total_pedido,id_user,fecha,sucursal)values(:id_pedidos,:total_pedido,:id_user,:fecha,:sucursal)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos (id_pedidos,total_pedido,id_user,fecha,sucursal,FechaEntrega)values(:id_pedidos,:total_pedido,:id_user,:fecha,:sucursal,:FechaEntrega)");
 		$consulta->bindValue(':total_pedido', $pedidos->total_pedido, PDO::PARAM_STR);
 		$consulta->bindValue(':id_pedidos', $pedidos->id_pedidos, PDO::PARAM_STR);
 		$consulta->bindValue(':id_user', $pedidos->id_user, PDO::PARAM_STR);
 		$consulta->bindValue(':fecha', $pedidos->fecha, PDO::PARAM_STR);
 		$consulta->bindValue(':sucursal', $pedidos->sucursal, PDO::PARAM_STR);
+		$consulta->bindValue(':FechaEntrega', $pedidos->FechaEntrega, PDO::PARAM_STR);
 		
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
