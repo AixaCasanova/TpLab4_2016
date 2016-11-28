@@ -11,6 +11,7 @@ angular
     objeto.EliminarP=EliminarP;
     objeto.TraerP=TraerP;
     objeto.TraerTodosD=TraerTodosD;
+    objeto.Estadisticas=Estadisticas;
    
     return objeto;
 
@@ -19,6 +20,12 @@ angular
        return ServPedidoBase.TraerListaSuc();
 
     };
+    
+     function Estadisticas(num){
+       return ServPedidoBase.Estadisticas(num);
+
+    };
+
 
     function TraerTodos(id){
    

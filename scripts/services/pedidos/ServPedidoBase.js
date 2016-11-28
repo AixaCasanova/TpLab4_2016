@@ -11,7 +11,7 @@ angular
     var url = factorybddPedido.Api;
     var urlTD = factorybddPedido.Api6;
     var urlS = factorybddPedido.Api7;
-    
+    var urlestad1=factorybddPedido.Api8;
 
     //Esta funcion es privada
    
@@ -52,6 +52,10 @@ angular
             else if (accion=="suc") {
                 return urlS;
            }
+           else if (accion=="estad1") {
+            console.info(urlestad1+ "/" + parametro);
+                return urlestad1+ "/" + parametro;
+           }
            else{
               return url + "/" + parametro;;
             }
@@ -59,6 +63,21 @@ angular
 
       } 
 
+
+this.Estadisticas =function(num)
+        {
+           qhago="estad1";
+          return $http.get(TraerUrl(num,qhago)).then(
+          function (respuesta){
+   
+            return respuesta.data;
+            
+          },
+          function (error){
+            return error;
+          }
+          );
+        }
 
         this.TraerListaSuc =function()
         {

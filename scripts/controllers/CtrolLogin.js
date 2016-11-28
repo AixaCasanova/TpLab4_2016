@@ -130,7 +130,7 @@ angular
                     {
              
                       if ($auth.isAuthenticated()) {
-      
+                        console.info("token",$auth.getPayload());
                         $scope.ver=false;
                         $scope.datos=$auth.getPayload();
                         $rootScope.userAVer="Bienvenido "+$scope.datos.nombre;

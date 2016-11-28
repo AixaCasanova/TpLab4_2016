@@ -35,6 +35,18 @@ $app->get('/sucursales[/]', function ($request, $response, $args) {
     return $response;
 });
 
+
+$app->get('/Estadisticas[/{objeto}]', function ($request, $response, $args) {
+ 
+ if ($args['objeto']=="1") {
+    $resp=pedidos::cantPedPorSucursal();
+    return json_encode($resp);
+  }
+    elseif ($args['objeto']=="2") {
+     $resp=pedidos::cantPedPorSucursalYemp();
+      return json_encode($resp);
+    }
+});
 $app->get('/productos[/]', function ($request, $response, $args) {
  
     $dato=productos::TraerTodosLosproductos();

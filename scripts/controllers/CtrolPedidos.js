@@ -1,15 +1,32 @@
 angular
   .module('app')
-  .controller('CtrolPedidos', function($scope,$rootScope, data,$auth, $auth,$stateParams,$state, ServPedido, i18nService, uiGridConstants)
+  .controller('CtrolPedidos', function($scope,$rootScope,NgMap,data,$auth, $auth,$stateParams,$state, ServPedido, i18nService, uiGridConstants)
    {
  
+
+         ServPedido.TraerListaSuc().then(function(resp){
+          var lstS=[];
+          resp.forEach(function(r){
+                if(r.nombre!="NoAplica"){
+                  lstS.push(r);
+                }
+              })
+            $scope.Lsucursales=lstS;  
+            $scope.SucEleg=$scope.Lsucursales[0].nombre;
+      
+         });
+
     var index = -1;
      var ListPr = [];
      var ListDetalle = [];
      var total=0;
-
      $scope.veoGrilla=false;
+     //$scope.fechaActual=
 
+    // $scope.fechasEntrega="26-11-2016";
+     //$scope.fechaActual = new Date();
+     //console.info($scope.fechaActual);
+    
      $scope.gridOptionsPedidos = {};
       $scope.gridOptionsPedidos.width=10;
      $scope.gridOptionsPedidos.columnDefs = columnDefsCom();
@@ -19,34 +36,162 @@ angular
       $scope.gridOptionsMisPedidos.paginationPageSize = 25;
       $scope.gridOptionsMisPedidos.columnDefs=columnDefs();
 
-      $scope.gridOptionsTodosPedidos = {};
-      $scope.gridOptionsTodosPedidos.paginationPageSizes = [25, 50, 75];
-      $scope.gridOptionsTodosPedidos.paginationPageSize = 25;
-      $scope.gridOptionsTodosPedidos.columnDefs=columnDefsTodos();
-      
+ 
+
       
      $scope.gridOptionsMisProdPedidos = {};
      $scope.gridOptionsMisProdPedidos.paginationPageSizes = [25, 50, 75];
      $scope.gridOptionsMisProdPedidos.paginationPageSize = 25;
 
-     $scope.gridOptionsMisProdPedidos2 = {};
-     $scope.gridOptionsMisProdPedidos2.paginationPageSizes = [25, 50, 75];
-     $scope.gridOptionsMisProdPedidos2.paginationPageSize = 25;
+//--------------------------------------
+
+
+ $scope.gridOptionsMisProdPedidos2 = {
+ exporterCsvFilename: 'misdatos.csv',
+      exporterCsvColumnSeparator: ';',
+      exporterPdfDefaultStyle: {fontSize: 9},
+      exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+      exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+      exporterPdfHeader: { text: "Pizerias argenta - Pedidos", style: 'headerStyle' },
+      exporterPdfFooter: function ( currentPage, pageCount ) {
+        return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+      },
+      exporterPdfCustomFormatter: function ( docDefinition ) {
+        docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+        return docDefinition;
+      },
+      exporterPdfOrientation: 'portrait',
+      exporterPdfPageSize: 'LETTER',
+      exporterPdfMaxGridWidth: 500,
+      exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+      onRegisterApi: function(gridApi){
+        $scope.gridApi = gridApi;
+      }
+    };
+
+      $scope.gridOptionsMisProdPedidos2.paginationPageSizes = [25, 50, 75];
+      $scope.gridOptionsMisProdPedidos2.columnDefs=columnDefsTodos();
+      $scope.gridOptionsMisProdPedidos2.enableGridMenu = true;
+     // $scope.gridOptions.selectAll = true;
+      $scope.gridOptionsMisProdPedidos2.paginationPageSize = 25;
+      $scope.gridOptionsMisProdPedidos2.enableFiltering = true;
+      i18nService.setCurrentLang('es');
+
+//-------------------------------------------------
+
+
+
 
      $scope.gridOptionsMisProdSel = {};
      $scope.gridOptionsMisProdSel.paginationPageSizes = [25, 50, 75];
      $scope.gridOptionsMisProdSel.paginationPageSize = 25;
      $scope.gridOptionsMisProdSel.columnDefs=columnDefsPsel();
 
+
+
+//-------------------------
+
+ $scope.gridOptionsTodosPedidos = {
+ exporterCsvFilename: 'misdatos.csv',
+      exporterCsvColumnSeparator: ';',
+      exporterPdfDefaultStyle: {fontSize: 9},
+      exporterPdfTableStyle: {margin: [30, 30, 30, 30]},
+      exporterPdfTableHeaderStyle: {fontSize: 10, bold: true, italics: true, color: 'red'},
+      exporterPdfHeader: { text: "Pizerias argenta - Pedidos", style: 'headerStyle' },
+      exporterPdfFooter: function ( currentPage, pageCount ) {
+        return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
+      },
+      exporterPdfCustomFormatter: function ( docDefinition ) {
+        docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
+        docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
+        return docDefinition;
+      },
+      exporterPdfOrientation: 'portrait',
+      exporterPdfPageSize: 'LETTER',
+      exporterPdfMaxGridWidth: 500,
+      exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
+      onRegisterApi: function(gridApi){
+        $scope.gridApi = gridApi;
+      }
+    };
+
+      $scope.gridOptionsTodosPedidos.paginationPageSizes = [25, 50, 75];
+      $scope.gridOptionsTodosPedidos.columnDefs=columnDefsTodos();
+      $scope.gridOptionsTodosPedidos.enableGridMenu = true;
+     // $scope.gridOptions.selectAll = true;
+      $scope.gridOptionsTodosPedidos.paginationPageSize = 25;
+      $scope.gridOptionsTodosPedidos.enableFiltering = true;
+      i18nService.setCurrentLang('es');
+
+  
+//-------------------------
+
           ServPedido.TraerP().then(function(resp)
           {          
+
+
            
            $scope.gridOptionsPedidos.data=resp;    
 
           }) 
   
 
- //-------------------
+ //-------------------MAPAS
+
+  var vm = this;
+            NgMap.getMap().then(function(map)
+            {
+              vm.showCustomMarker= function(evt) 
+              {
+                map.customMarkers.foo.setVisible(true);
+                map.customMarkers.foo.setPosition(this.getPosition());
+                map.customMarkers.usa.setVisible(false);
+                map.customMarkers.can.setVisible(false);
+                map.customMarkers[el.className].setContent(el.innerHTML);
+                map.customMarkers[el.className].setVisible(true);
+                map.customMarkers[el.className].draw();
+                
+              };
+              vm.closeCustomMarker= function(evt)
+              {
+                this.style.display = 'none';
+              };
+            
+            });
+
+
+ $scope.VerRecorrido=function(parametro)
+{
+  console.info(parametro);
+
+$scope.lat1="-34.744706";
+$scope.long1="-58.390605";
+
+$scope.lat2="-34.740006";
+$scope.long2="-58.300605";
+  
+$scope.travelMode="DRIVING";
+
+ var MiUsuario=$auth.getPayload();
+
+ $scope.Midireccion=MiUsuario['direccion'];
+$scope.DirSucursal="";
+       //console.info($scope.Lsucursales);
+
+       $scope.Lsucursales.forEach(function(s){
+         
+        $scope.sDeLista=s['nombre'];
+        if ($scope.sDeLista==parametro) {
+          
+          $scope.DirSucursal=s['direccion'];
+        }
+       })
+
+console.info($scope.DirSucursal);
+}
+
+ //-----------------------
 
  
        if ($auth.isAuthenticated()) 
@@ -99,7 +244,7 @@ angular
             ServPedido.TraerTodos(iduser).then(function(resp)
             {
 
-              console.info(resp);
+              console.info("mis pedidos",resp);
               $scope.gridOptionsMisPedidos.data=resp;
               
 
@@ -108,7 +253,7 @@ angular
               if (datos['perfil'] != "comprador") {
                 ServPedido.TraerTodos().then(function(resp)
                 {
-                  console.info(resp);
+                  console.info("tods lospedidos",resp);
                   $scope.gridOptionsTodosPedidos.data=resp;
                 }); 
               }
@@ -122,22 +267,6 @@ angular
 
 
 
-
-
-         ServPedido.TraerListaSuc().then(function(resp){
-          var lstS=[];
-          resp.forEach(function(r){
-                if(r.nombre!="NoAplica"){
-                  lstS.push(r);
-                }
-              })
-            $scope.Lsucursales=lstS;  
-            $scope.SucEleg=$scope.Lsucursales[0].nombre;
-          
-         });
-
-
-      
        
         $scope.agregar=function(parametro)
         {
@@ -321,7 +450,9 @@ angular
           ,{ field: 'total_pedido', name: 'total_pedido', width: 120
           ,enableFiltering: false
           }
-
+           ,{ field: 'FechaEntrega', name: 'FechaEntrega', width: 120
+          ,enableFiltering: false
+          }
           ]
         };
 
@@ -342,7 +473,9 @@ angular
           ,{ field: 'total_pedido', name: 'total_pedido', width: 120
           ,enableFiltering: false
           }
-
+           ,{ field: 'FechaEntrega', name: 'FechaEntrega', width: 120
+          ,enableFiltering: false
+          }
           ]
         };
 

@@ -15,6 +15,8 @@ class pedidos
  	public $sucursal;
 
  	public $persona; 
+
+ 	public $FechaEntrega;
 //--------------------------------------------------------------------------------//
 
 //--------------------------------------------------------------------------------//
@@ -108,13 +110,32 @@ public function Getid_fecha()
 					
 	}
 
+
+public static function cantPedPorSucursal()
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT count(id_pedidos) as cantidad, sucursal FROM pedidos GROUP BY sucursal");
+		$consulta->execute();			
+		$arrVotos= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	
+		return $arrVotos;
+	}
+	public static function cantPedPorSucursalYemp()
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("select count(p.id_pedidos) as cantidad, p.sucursal, u.nombre as empleado from pedidos p, usuario u where p.id_user=u.id_user and u.tipo='vendedor' GROUP by p.sucursal, u.nombre");
+		$consulta->execute();			
+		$arrVotos= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	
+		return $arrVotos;
+	}
+	
+
 	public static function TraerMisPedidos($id) 
 	{	
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 	
-		$consulta =$objetoAccesoDato->RetornarConsulta("select p.id_pedidos,p.total_pedido, p.id_user, p.fecha, p.sucursal, u.nombre as nombre from pedidos p, usuario as u where p.id_user=:id_usuario and p.id_user=u.id_user");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select p.id_pedidos,p.total_pedido, p.id_user, p.fecha,p.FechaEntrega ,p.sucursal, u.nombre as nombre from pedidos p, usuario as u where p.id_user=:id_usuario and p.id_user=u.id_user");
 		$consulta->bindValue(':id_usuario', $id, PDO::PARAM_INT);
 		$consulta->execute();			
 		$arrp= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	
@@ -149,7 +170,7 @@ public function Getid_fecha()
 	public static function TraerTodosLosPedidos()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select p.id_pedidos,p.total_pedido, p.id_user, p.fecha, p.sucursal, u.nombre as nombre, u.tipo from pedidos p, usuario as u where p.id_user=u.id_user");
+		$consulta =$objetoAccesoDato->RetornarConsulta("select p.id_pedidos,p.total_pedido, p.id_user, p.fecha, p.sucursal,p.FechaEntrega, u.nombre as nombre, u.tipo from pedidos p, usuario as u where p.id_user=u.id_user");
 		$consulta->execute();			
 		$arrVotos= $consulta->fetchAll(PDO::FETCH_CLASS, "pedidos");	
 		return $arrVotos;

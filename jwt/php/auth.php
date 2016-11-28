@@ -16,6 +16,7 @@ $user=json_decode($datosDelModeloPorPost);
 	$token["algo"]=$user;
  	$token["id_user"]=$user->id_user;
  	$token["algo2"]="algo2";
+ 	$token["direccion"]=$user->direccion;
 
 
 	$jwt = JWT::encode($token, $claveDeEncripcion);
