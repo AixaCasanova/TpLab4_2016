@@ -12,6 +12,7 @@ angular
     var urlTD = factorybddPedido.Api6;
     var urlS = factorybddPedido.Api7;
     var urlestad1=factorybddPedido.Api8;
+    var urlGuardE=factorybddPedido.Api9;
 
     //Esta funcion es privada
    
@@ -36,6 +37,10 @@ angular
            } 
            else if (accion=="todos") {
                  return url + "/" + parametro;
+            }
+            else if (accion=="GuardE") {
+              console.info(urlGuardE + "/" + parametro);
+                 return urlGuardE + "/" + parametro;
             }
             else if (accion=="todosD") {
                  return urlTD + "/" + parametro;
@@ -78,6 +83,24 @@ this.Estadisticas =function(num)
           }
           );
         }
+
+
+        
+        this.GuardarEncuesta =function(enc)
+        {
+           qhago="GuardE";
+          return $http.get(TraerUrl(enc,qhago)).then(
+          function (respuesta){
+   
+            return respuesta.data;
+            
+          },
+          function (error){
+            return error;
+          }
+          );
+        }
+
 
         this.TraerListaSuc =function()
         {

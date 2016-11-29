@@ -12,6 +12,7 @@ angular
     objeto.Api6 ="http://localhost:8026/TpLab4_2016/ws/pedidosDT";
     objeto.Api7 ="http://localhost:8026/TpLab4_2016/ws/sucursales";
     objeto.Api8 ="http://localhost:8026/TpLab4_2016/ws/Estadisticas";
+    objeto.Api9 ="http://localhost:8026/TpLab4_2016/ws/Encuesta";
     return objeto;
 
 
@@ -38,6 +39,22 @@ angular
         }
         );
     }
+
+    function GuardarEncuesta(e)
+        {
+          return $http.get(TraerUrl(e)).then(
+            function (respuesta)
+            {
+             
+              return respuesta.data;
+            },
+            function (error){
+              return error;
+            }
+          );
+        }
+
+
 
             function Estadisticas(){
       return $http.get(TraerUrl()).then(

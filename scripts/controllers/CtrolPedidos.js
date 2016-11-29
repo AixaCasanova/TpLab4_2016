@@ -416,7 +416,8 @@ $scope.longListaP=0;
               Ids=[];
               detp=[];
              suma=0; 
-              $state.go("MisPedidos"); 
+             alert("Sera redireccionado a una encuesta de satisfaccion");
+              $state.go("encuesta"); 
         }
 
         

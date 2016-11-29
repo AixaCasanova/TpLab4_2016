@@ -12,6 +12,7 @@ angular
     objeto.TraerP=TraerP;
     objeto.TraerTodosD=TraerTodosD;
     objeto.Estadisticas=Estadisticas;
+    objeto.GuardarEncuesta=GuardarEncuesta;
    
     return objeto;
 
@@ -26,6 +27,12 @@ angular
 
     };
 
+    
+    function GuardarEncuesta(Obj){
+      console.info(Obj);
+       return ServPedidoBase.GuardarEncuesta(Obj);
+
+    };
 
     function TraerTodos(id){
    

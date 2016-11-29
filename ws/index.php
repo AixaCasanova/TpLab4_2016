@@ -24,6 +24,15 @@ $app = new Slim\App();
 });
 
 
+
+$app->get('/Encuesta[/{objeto}]', function ($request, $response, $args) {
+    
+    $obj=$args['objeto'];
+    return json_encode($obj);
+
+});
+
+
 $app->get('/usuarios[/]', function ($request, $response, $args) {
     //$response->write("Lista de usuarios");
     $dato=usuario::TraerTodosLosusuarios();

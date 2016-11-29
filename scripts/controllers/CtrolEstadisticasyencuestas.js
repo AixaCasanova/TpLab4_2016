@@ -168,7 +168,7 @@ $scope.verE7= function()
       ];
     };
 
- 	 /*
+/*
 		            var lbl="labels:[\"";
                   var lbl2="data:[\"";
                  var cont=1;
@@ -230,16 +230,44 @@ $scope.verE7= function()
 		var ctx = document.getElementById("myChart").getContext("2d");
 		var ctx = $("#myChart");
 		var ctx = "myChart";
-
-
-
- 	 */
+*/
 
 })
 
 
  .controller('CtrolEncuesta', function($scope,$rootScope ,$auth,$state ,data, ServPedido ,$stateParams, i18nService, uiGridConstants) {
  
+
+	 $scope.descripcionClaraNew="Si";
+	 $scope.problemasPRealizarPNew="Si";
+	 $scope.PregAdquirioOld="Si";
+ 	$scope.tiempoEntregaOld="Bueno";
+	 $scope.calidadProductoOld="Bueno";
+	 $scope.calidadAtencionOld="Bueno";
+	 $scope.ComoLlego="TV";
+
+
+ $scope.guardarEncuesta=function()
+ {
+ 	$scope.encuesta={};
+	$scope.encuesta.descripcionClaraNew=$scope.descripcionClaraNew;
+	$scope.encuesta.problemasPRealizarPNew=$scope.problemasPRealizarPNew;
+	$scope.encuesta.PregAdquirioOld=$scope.PregAdquirioOld;
+	$scope.encuesta.tiempoEntregaOld=$scope.tiempoEntregaOld;
+	$scope.encuesta.calidadProductoOld=$scope.calidadProductoOld;
+	$scope.encuesta.calidadAtencionOld=$scope.calidadAtencionOld;
+	$scope.encuesta.ComoLlego=$scope.ComoLlego;
+
+	
+	console.info($scope.encuesta);
+	ServPedido.GuardarEncuesta(JSON.stringify($scope.encuesta)).then(function(resp)
+    {
+        console.info(resp);
+     	 
+	}); 
+
+ 	//$state.go("MisPedidos");
+ }
 
 })
 
