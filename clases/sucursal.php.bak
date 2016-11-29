@@ -87,8 +87,8 @@ class sucursal
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("select * from sucursal where id_sucursal =:id_sucursal");
-		$consulta->bindValue(':id_sucursal', $Parametro, PDO::PARAM_INT);
+		$consulta =$objetoAccesoDato->RetornarConsulta("select id_sucursal from sucursal where nombre =:nombre");
+		$consulta->bindValue(':nombre', $Parametro, PDO::PARAM_INT);
 		$consulta->execute();
 		$VotoBuscado= $consulta->fetchObject('sucursal');
 		return $VotoBuscado;	
@@ -153,9 +153,10 @@ class sucursal
 	public static function InsertarSucursal($sucursal)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into sucursal (direccion,nombre,foto2,foto1,foto3)values(:direccion,:nombre,:foto2,:foto1,:foto3)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into sucursal (id_sucursal,direccion,nombre,foto2,foto1,foto3)values(:id_sucursal,:direccion,:nombre,:foto2,:foto1,:foto3)");
 		$consulta->bindValue(':direccion',$sucursal->direccion, PDO::PARAM_STR);
 		$consulta->bindValue(':nombre', $sucursal->nombre, PDO::PARAM_STR);
+		$consulta->bindValue(':id_sucursal', $sucursal->id_sucursal, PDO::PARAM_STR);
 		$consulta->bindValue(':foto1', $sucursal->foto1, PDO::PARAM_STR);
 		$consulta->bindValue(':foto2', $sucursal->foto2, PDO::PARAM_STR);
 		$consulta->bindValue(':foto3', $sucursal->foto3, PDO::PARAM_STR);

@@ -68,7 +68,7 @@ angular
        this.InsertarLocal =function(loc){
  
          qhago="loc";
-        return $http.post(TraerUrl(loc,qhago)).then(
+        return $http.get(TraerUrl(loc,qhago)).then(
           function (respuesta){
     
             return respuesta.data;

@@ -9,19 +9,7 @@ require 'vendor/autoload.php';
  
 $app = new Slim\App();
 
- $app->post('/archivos', function ($request, $response, $args) {
-    
-    if ( !empty( $_FILES ) ) {
-    $tempPath = $_FILES[ 'file' ][ 'tmp_name' ];
-    $uploadPath = "imagenes" . DIRECTORY_SEPARATOR . $_FILES[ 'file' ][ 'name' ];
-    move_uploaded_file( $tempPath, $uploadPath );
-    $answer = array( 'answer' => 'File transfer completed' );
-    $json = json_encode( $answer );
-    } else {
-        echo 'No files';
-    }
-    return $response;
-});
+ 
 
 
 $app->get('/usuarios[/]', function ($request, $response, $args) {
@@ -67,34 +55,26 @@ $app->get('/productos[/]', function ($request, $response, $args) {
     return $response;
 });
 
-$app->post('/sucursalesUp[/{objeto}]', function ($request, $response, $args) {
-        $sucursal=json_decode($args['objeto']);
-        $sucursal->fotos=explode(';',$sucursal->fotos);
-        $arrayFoto = array();
-        if(count($sucursal->fotos) > 0){
-            for ($i = 0; $i < count($sucursal->fotos); $i++ ){
-                $rutaVieja="imagenes/".$sucursal->fotos[$i];
-                $rutaNueva=$sucursal->nombre. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
-                copy($rutaVieja, "../imagenes/".$rutaNueva);
-                unlink($rutaVieja);
-                $arrayFoto[]= "imagenes/".$rutaNueva;
-            } 
-            $sucursal->fotos=json_encode($arrayFoto); 
-        } 
-        //return $response->write(Local::InsertarLocal($sucursal)); 
-        $UnaSuc=new sucursal();
-     
-    
-        $UnaSuc->direccion=$sucursal->direccion;
-        $UnaSuc->nombre=$sucursal->nombre;
-        $UnaSuc->foto1=$arrayFoto[0];
-        $UnaSuc->foto2=$arrayFoto[1];
-        $UnaSuc->foto3=$arrayFoto[2];
-        $resp=sucursal::InsertarSucursal($UnaSuc);
-        return json_encode($resp);
+$app->get('/sucursalesUp[/{objeto}]', function ($request, $response, $args) {
+  
 
-        //return "hola";
-       
+    $sucursal=json_decode($args['objeto']);
+    $sucursal->fotos=explode(';',$sucursal->fotos);
+    $arrayFoto = array();
+    if(count($sucursal->fotos) > 0){
+        for ($i = 0; $i < count($sucursal->fotos); $i++ ){
+            $rutaVieja="imagenes/".$sucursal->fotos[$i];
+            $rutaNueva=$sucursal->nombre. "_". $i .".".PATHINFO($rutaVieja, PATHINFO_EXTENSION);
+            //copy($rutaVieja, "fotos/".$rutaNueva);
+            //unlink($rutaVieja);
+            //$arrayFoto[]="http://localhost:8026/TpLab4_2016/imagenes/Sucursales/".$rutaNueva;
+             return json_encode($rutaNueva);
+        } 
+
+        //$sucursal->fotos=json_encode($arrayFoto); 
+
+    }
+   
 });
 
 $app->get('/OfertasDeSucursal[/{objeto}]', function ($request, $response, $args) {

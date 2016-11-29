@@ -60,7 +60,6 @@ angular
   $scope.gridOptionsSucursNoAdm.columnDefs=columnDefsSucursal2();
  
  //----------------------
-$scope.SubirdorArchivos = new FileUploader({ url: "http://localhost:8026/TpLab4_2016/ws/archivos"});
 
   if ($stateParams['parametro'] != null ) 
       {
@@ -76,28 +75,31 @@ $scope.SubirdorArchivos = new FileUploader({ url: "http://localhost:8026/TpLab4_
       }
       else{
          
-        $scope.sucursal.direccion="Belgrano 1300, Banfield";
+        $scope.sucursal.direccion="Belgrano 1260";
         $scope.sucursal.nombre="sucursal C";
         $scope.sucursal.fotos="";
  
-     
+        //$scope.uploader=new FileUploader({url:'http://localhost:8026/TpLab4_2016/ws/sucursalesFoto'});
+        $scope.SubirdorArchivos=new FileUploader({url:'http://localhost:8026/TpLab4_2016/imagenes/'});
+
       }
  
 
  //----------------------------- verrr!!!
   $scope.SubirdorArchivos.onCompleteAll = function(item, response, status, headers) 
   {
-    
-        
-            ServSucursales.InsertarLocal(JSON.stringify($scope.sucursal))
-                .then(function (respuesta) {
-                    console.info('onCompleteAll: '+ respuesta);
-                    $state.go("sucursales");
 
-                }, function (error) {
-                    console.info(error);
-                });
+      ServSucursales.InsertarLocal(JSON.stringify($scope.sucursal)) //+ JSON.stringify($scope.persona))
+        .then(function(respuesta)
+         {       
+            //aca se ejetuca si retorno sin errores 
+            console.info(respuesta);    
+          },function errorCallback(response) 
+          {        
+            //aca se ejecuta cuando hay errores
+            console.info(response);     
 
+         });
 
 
     }
@@ -106,26 +108,26 @@ $scope.SubirdorArchivos = new FileUploader({ url: "http://localhost:8026/TpLab4_
 
 
 
-  $scope.Guardar = function () {
-        if ($scope.SubirdorArchivos.queue != undefined) {
-            var nombreFoto = "";
-            for (i in $scope.SubirdorArchivos.queue) {
-                if (nombreFoto != "")
-                    nombreFoto = nombreFoto + ";" + ($scope.SubirdorArchivos.queue[i]._file.name);
-
-
-
-
-
-                else
-
-                    nombreFoto = ($scope.SubirdorArchivos.queue[i]._file.name);
-            }
-            $scope.sucursal.fotos = nombreFoto;
-
+  $scope.Guardar=function()
+  {
+    if($scope.SubirdorArchivos.queue != undefined)
+    {
+      var nombreFoto="";
+      for (i in $scope.SubirdorArchivos.queue)
+       {
+        if(nombreFoto != "")
+        {
+          nombreFoto = nombreFoto + ";" +($scope.SubirdorArchivos.queue[i]._file.name);
         }
-        $scope.SubirdorArchivos.uploadAll();
+        else
+        {
+          nombreFoto = ($scope.SubirdorArchivos.queue[i]._file.name);
+        }
+      }
+      $scope.sucursal.fotos=nombreFoto;
     }
+    $scope.SubirdorArchivos.uploadAll();
+  }
 
  
 //-------------------------------

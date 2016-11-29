@@ -120,7 +120,6 @@
     
  
     <!-- controllers -->
-    <script src="scripts/controllers/ngThumb.js"></script>
     <script src="scripts/controllers/CtrolUsuario.js"></script>
     <script src="scripts/controllers/CtrolOfertas.js"></script>
     <script src="scripts/controllers/CtrolProductos.js"></script>
